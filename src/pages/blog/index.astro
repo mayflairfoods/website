@@ -1,0 +1,152 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/layout/Container.astro";
+import BlogGrid from "@/components/blog/BlogGridd";
+
+import { loadQuery } from "@/sanity/lib/load-query";
+
+const { data } = await loadQuery({
+  query: `
+    *[_type == "post" && defined(slug.current)]
+      | order(publishedAt desc) {
+        title,
+        "slug": slug.current,
+        "image": mainImage.asset->url,
+        publishedAt,
+
+        "categories": categories[]->{
+          title,
+          "slug": slug.current
+        },
+
+        tags
+      }
+  `,
+});
+
+type SanityPost = {
+  title: string;
+  slug: string;
+  image?: string;
+  publishedAt?: string;
+
+  categories?: {
+    title: string;
+    slug?: string;
+  }[];
+
+  tags?: string[];
+};
+
+const posts = (data as SanityPost[]).map((post) => ({
+  title: post.title,
+  slug: post.slug,
+  image: post.image,
+  publishedAt: post.publishedAt,
+
+  categories: post.categories ?? [],
+  tags: post.tags ?? [],
+
+  // Primary category for the card
+  tag: post.categories?.[0]?.title,
+}));
+
+/*
+ * Collect all categories used across posts.
+ * Useful for filtering the blog.
+ */
+
+const categories = [
+  ...new Set(
+    posts.flatMap((post) =>
+      post.categories.map((category) => category.title).filter(Boolean),
+    ),
+  ),
+];
+
+const tags = [...new Set(posts.flatMap((post) => post.tags).filter(Boolean))];
+
+const featuredPost = posts[0];
+const remainingPosts = posts;
+---
+
+<BaseLayout
+  title="Blog | Mayflair Foods"
+  description="What's happening in Mayflair — stories, food, community, events and more."
+>
+  <main>
+    <!-- Blog Header -->
+    <section class="py-12 md:py-16">
+      <Container>
+        <div class="max-w-2xl">
+          <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">
+            Blog
+          </h1>
+
+          <p class="mt-2 text-sm text-muted">What's happening in Mayflair</p>
+        </div>
+      </Container>
+    </section>
+
+    <!-- Featured Post -->
+    {
+      featuredPost && (
+        <section class="pb-12 md:pb-16">
+          <Container>
+            <a href={`/blog/${featuredPost.slug}`} class="group block">
+              <div class="overflow-hidden rounded-2xl bg-surface-muted">
+                {featuredPost.image && (
+                  <img
+                    src={featuredPost.image}
+                    alt={featuredPost.title}
+                    class="aspect-[16/7] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
+                )}
+              </div>
+
+              <div class="mt-4">
+                {featuredPost.tag && (
+                  <span class="inline-flex rounded-full bg-primary-soft px-3 py-1 text-xs font-medium text-primary">
+                    {featuredPost.tag}
+                  </span>
+                )}
+
+                <h2 class="mt-3 max-w-4xl text-2xl font-medium leading-tight transition-colors group-hover:text-primary md:text-3xl">
+                  {featuredPost.title}
+                </h2>
+
+                {featuredPost.publishedAt && (
+                  <time
+                    datetime={featuredPost.publishedAt}
+                    class="mt-2 block text-sm text-muted"
+                  >
+                    {new Date(featuredPost.publishedAt).toLocaleDateString(
+                      "en-NG",
+                      {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      },
+                    )}
+                  </time>
+                )}
+              </div>
+            </a>
+          </Container>
+        </section>
+      )
+    }
+
+    <!-- Posts -->
+    <section class="pb-20">
+      <Container>
+        <BlogGrid
+          client:load
+          posts={remainingPosts}
+          categories={categories}
+          tags={tags}
+        />
+      </Container>
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+/* =========================================================
+   MAYFLAIR FOODS — GLOBAL STYLES
+   ========================================================= */
+
+/* =========================================================
+   FONTS
+   ========================================================= */
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-200.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-300.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-500.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-700.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-800.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../assets/fonts/poppins-v24-900.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Happy School";
+  src: url("../assets/fonts/HappySchool.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* =========================================================
+   DESIGN TOKENS
+   ========================================================= */
+
+:root {
+  --mf-primary: #b5122b;
+  --mf-primary-dark: #8f0e22;
+  --mf-primary-soft: #fcecef;
+
+  --mf-accent: #e2a229;
+  --mf-accent-dark: #c88b17;
+  --mf-accent-soft: #fff4d8;
+
+  --mf-background: #ffffff;
+  --mf-surface: #ffffff;
+  --mf-surface-muted: #f8f8f7;
+  --mf-surface-warm: #fffaf1;
+
+  --mf-foreground: #201a16;
+  --mf-foreground-soft: #3c3733;
+
+  --mf-muted: #77736f;
+  --mf-muted-light: #a29e99;
+
+  --mf-border: #e8e5e2;
+  --mf-border-light: #f0eeec;
+
+  --mf-success: #16834b;
+  --mf-warning: #b76e00;
+  --mf-danger: #c6283d;
+  --mf-info: #356ae6;
+
+  --mf-content-width: 1152px;
+  --mf-wide-width: 1280px;
+}
+
+/* =========================================================
+   TAILWIND THEME
+   ========================================================= */
+
+@theme inline {
+  /* Colors */
+
+  --color-background: var(--mf-background);
+  --color-foreground: var(--mf-foreground);
+
+  --color-primary: var(--mf-primary);
+  --color-primary-dark: var(--mf-primary-dark);
+  --color-primary-soft: var(--mf-primary-soft);
+
+  --color-accent: var(--mf-accent);
+  --color-accent-dark: var(--mf-accent-dark);
+  --color-accent-soft: var(--mf-accent-soft);
+
+  --color-surface: var(--mf-surface);
+  --color-surface-muted: var(--mf-surface-muted);
+  --color-surface-warm: var(--mf-surface-warm);
+
+  --color-muted: var(--mf-muted);
+  --color-muted-light: var(--mf-muted-light);
+
+  --color-border: var(--mf-border);
+  --color-border-light: var(--mf-border-light);
+
+  --color-success: var(--mf-success);
+  --color-warning: var(--mf-warning);
+  --color-danger: var(--mf-danger);
+  --color-info: var(--mf-info);
+
+  /* Fonts */
+
+  --font-sans: "Poppins", sans-serif;
+  --font-display: "Happy School", cursive;
+
+  /* Layout */
+
+  --container-content: 1152px;
+  --container-wide: 1280px;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--mf-background);
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+
+  background: var(--mf-background);
+  color: var(--mf-foreground);
+
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+}
+
+strong {
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  margin: 0;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* =========================================================
+   MAYFLAIR TYPE
+   ========================================================= */
+
+.font-display {
+  font-family: "Happy School", cursive;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+:focus-visible {
+  outline: 2px solid var(--mf-primary);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* =========================================================
+   SELECTION
+   ========================================================= */
+
+::selection {
+  background: var(--mf-primary-soft);
+  color: var(--mf-primary-dark);
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mf-border) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--mf-border);
+  border-radius: 999px;
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

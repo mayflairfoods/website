@@ -12,9 +12,27 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.2.6"
+    "@astrojs/node": "^11.1.4",
+    "@astrojs/react": "^6.0.4",
+    "@portabletext/react": "^8.0.1",
+    "@sanity/astro": "^3.5.1",
+    "@sanity/client": "^8.2.0",
+    "@sanity/image-url": "^2.1.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "astro": "^7.2.6",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-is": "^19.2.8",
+    "sanity": "^6.10.1",
+    "styled-components": "^6.5.3",
+    "tailwindcss": "^4.3.3"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0"
   }
 }
