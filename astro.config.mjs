@@ -3,17 +3,16 @@ import { defineConfig } from "astro/config";
 
 import sanity from "@sanity/astro";
 import react from "@astrojs/react";
-import node from "@astrojs/node";
 
 import { fileURLToPath } from "node:url";
 
 import tailwindcss from "@tailwindcss/vite";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://mayflairfoods.com",
-
-  adapter: node({ mode: "standalone" }),
 
   integrations: [
     sanity({
@@ -34,4 +33,6 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: vercel(),
 });

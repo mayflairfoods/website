@@ -2,8 +2,8 @@
 import { loadQuery } from "@/sanity/lib/load-query";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Container from "@/components/layout/Container.astro";
-import type { Post } from "@/types/post";
 import PostBody from "@/components/blog/PostBody";
+import type { Post } from "@/types/post";
 
 export async function getStaticPaths() {
   const { data } = await loadQuery({
@@ -19,10 +19,8 @@ export async function getStaticPaths() {
     slug: string;
   }>;
 
-  return posts.map((post) => ({
-    params: {
-      slug: post.slug,
-    },
+  return posts.map(({ slug }) => ({
+    params: { slug },
   }));
 }
 
@@ -34,7 +32,7 @@ const { data: post } = (await loadQuery({
     slug.current == $slug
   ][0]{
     title,
-    slug,
+    "slug": slug.current,
     publishedAt,
 
     "author": author->{
@@ -88,14 +86,14 @@ const tags = post.tags ?? [];
   description={`Read ${post.title} on Mayflair Foods.`}
 >
   <article>
-    <!-- Article Header -->
+    <!-- Header -->
     <header class="py-12 sm:py-16 lg:py-20">
       <Container>
         <div class="mx-auto max-w-3xl">
           <!-- Categories -->
           {
             categories.length > 0 && (
-              <div class="mb-5 flex flex-wrap gap-2">
+              <div class="mb-6 flex flex-wrap gap-2">
                 {categories.map((category) =>
                   category.slug ? (
                     <a
@@ -172,7 +170,7 @@ const tags = post.tags ?? [];
       )
     }
 
-    <!-- Article Body -->
+    <!-- Article -->
     {
       post.body && (
         <section class="py-12 sm:py-16 lg:py-20">
