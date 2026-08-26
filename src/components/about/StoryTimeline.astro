@@ -1,0 +1,60 @@
+---
+import Container from "@/components/layout/Container.astro";
+
+const milestones = [
+  {
+    title: "Where It Began",
+    text: "What started as a small food business at the University of Nigeria, Enugu Campus quickly became a growing part of students and friends' daily routines. From feeding a few to feeding many, we grew from food naturally, built people together.",
+  },
+  {
+    title: "First Customers",
+    text: "As more people discovered Mayflair, our community continued to grow. Students, friends, professionals, and guests became part of our journey. Their support helped shape who we are and how we serve today.",
+  },
+  {
+    title: "More Than Just Food",
+    text: "Over time, Mayflair became more than a place to grab a meal. We expanded into creating moments, conversations, and experiences that bring people together.",
+  },
+  {
+    title: "Building The Future",
+    text: "Today, we're focused on serving even more people with the same quality, warmth, and hospitality that brought us here. We're constantly improving our menu, service, and customer experience.",
+  },
+];
+---
+
+<section class="py-16 sm:py-20 lg:py-24">
+  <Container>
+    <div class="mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl md:text-4xl tracking-tight sm:text-3xl">
+        Our Story
+      </h2>
+
+      <div class="relative mt-12">
+        <!-- Timeline line -->
+        <div
+          class="absolute left-1.25 top-2 bottom-2 w-px bg-primary/25"
+          aria-hidden="true"
+        >
+        </div>
+
+        <div class="space-y-8">
+          {
+            milestones.map((item) => (
+              <article class="relative pl-8 flex flex-col gap-3">
+                <span
+                  class="absolute left-0 top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-white"
+                  aria-hidden="true"
+                />
+
+                <h3 class="font-semibold text-foreground">{item.title}</h3>
+
+                <p class="mt-2 text-sm leading-6 text-muted sm:text-sm sm:leading-6">
+                  {item.text}
+                </p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

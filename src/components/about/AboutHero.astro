@@ -1,0 +1,36 @@
+---
+import Container from "@/components/layout/Container.astro";
+---
+
+<section class="pt-16 pb-12 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-20">
+  <Container>
+    <div class="mx-auto max-w-3xl flex flex-col gap-6 text-center">
+      <h1
+        class="text-4xl block font-medium leading-[1.05] tracking-tight text-foreground sm:text-6xl lg:text-6xl"
+      >
+        Where&nbsp;
+        <span class="relative bg-primary-soft inline-block text-primary">
+          good food&nbsp;</span
+        >brings
+        <br class="hidden sm:block" />
+        <span class="relative inline-block bg-[#9A6A28]/30 text-[#9A6A28]"
+          >&nbsp;people together
+        </span>
+      </h1>
+
+      <p class="mx-auto max-w-xl leading-6 text-muted sm:text-base">
+        From quick lunches to big celebrations, Mayflair is where great food and
+        even better moments come together.
+      </p>
+    </div>
+
+    <div class="mt-10 overflow-hidden rounded-2xl sm:mt-14 lg:rounded-3xl">
+      <img
+        src="/images/about-hero.webp"
+        alt="The Mayflair Foods team together"
+        class="md:aspect-16/7 h-72! md:h-auto w-full object-cover"
+        loading="eager"
+      />
+    </div>
+  </Container>
+</section>
