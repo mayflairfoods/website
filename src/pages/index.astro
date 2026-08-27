@@ -11,26 +11,36 @@ import Container from "../components/layout/Container.astro";
     <Container>
       <div class="mx-auto max-w-3xl text-center">
         <h1
-          class="text-4xl font-semibold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          class="text-4xl font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl"
         >
-          Good food. Always.
+          Hungry? Say Less.
         </h1>
 
         <p
           class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
         >
-          At Mayflair Foods, we believe that good food is the key to a happy
-          life. That's why we use only the freshest ingredients and the best
-          recipes to create delicious meals that make you smile.
+          Whether it's a quick lunch, a study break, a team hangout, or a
+          well-deserved treat, there's always something good waiting at
+          Mayflair.
         </p>
 
         <div class="mt-8 flex justify-center">
           <a
-            href="/menu"
-            class="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-medium text-white transition-colors hover:bg-primary-dark"
+            href="https://wa.link/cpo8so"
+            class="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 text-sm font-display font-medium text-white transition-colors hover:bg-primary-dark"
+            target="_blank"
           >
-            View Menu
+            Order Now
           </a>
+        </div>
+
+        <div class="relative z-0 mt-10 w-full max-w-4xl">
+          <img
+            src="/images/home-hero.webp"
+            alt="Mayflair Foods meals"
+            class="mx-auto w-full object-contain"
+            loading="eager"
+          />
         </div>
       </div>
     </Container>
