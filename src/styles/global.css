@@ -1,74 +1,70 @@
 @import "tailwindcss";
 
 /* =========================================================
-   MAYFLAIR FOODS — GLOBAL STYLES
-   ========================================================= */
-
-/* =========================================================
    FONTS
    ========================================================= */
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-200.woff2") format("woff2");
-  font-style: normal;
   font-weight: 200;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-300.woff2") format("woff2");
-  font-style: normal;
   font-weight: 300;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-regular.woff2") format("woff2");
-  font-style: normal;
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-500.woff2") format("woff2");
-  font-style: normal;
   font-weight: 500;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-700.woff2") format("woff2");
-  font-style: normal;
   font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-800.woff2") format("woff2");
-  font-style: normal;
   font-weight: 800;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Poppins";
   src: url("../assets/fonts/poppins-v24-900.woff2") format("woff2");
-  font-style: normal;
   font-weight: 900;
+  font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Happy School";
   src: url("../assets/fonts/HappySchool.woff2") format("woff2");
-  font-style: normal;
   font-weight: 400;
+  font-style: normal;
   font-display: swap;
 }
 
@@ -113,8 +109,6 @@
    ========================================================= */
 
 @theme inline {
-  /* Colors */
-
   --color-background: var(--mf-background);
   --color-foreground: var(--mf-foreground);
 
@@ -141,12 +135,8 @@
   --color-danger: var(--mf-danger);
   --color-info: var(--mf-info);
 
-  /* Fonts */
-
   --font-sans: "Poppins", sans-serif;
   --font-display: "Happy School", cursive;
-
-  /* Layout */
 
   --container-content: 1152px;
   --container-wide: 1280px;
@@ -156,20 +146,16 @@
    BASE
    ========================================================= */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
   background: var(--mf-background);
+  overflow-x: clip;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: clip;
 
   background: var(--mf-background);
   color: var(--mf-foreground);
@@ -184,29 +170,22 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* =========================================================
-   TYPOGRAPHY
-   ========================================================= */
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  /* font-weight: 600; */
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-p {
-  margin: 0;
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
 }
 
-strong {
-  font-weight: 600;
+img {
+  height: auto;
 }
 
 a {
@@ -230,20 +209,28 @@ button:disabled {
   cursor: not-allowed;
 }
 
-img,
-svg,
-video,
-canvas {
-  display: block;
-  max-width: 100%;
-}
-
-img {
-  height: auto;
-}
-
 textarea {
   resize: vertical;
+}
+
+/* =========================================================
+   TYPOGRAPHY
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+strong {
+  font-weight: 600;
 }
 
 /* =========================================================
@@ -272,9 +259,9 @@ textarea {
   padding: 0;
   margin: -1px;
   overflow: hidden;
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-  clip: rect(0, 0, 0, 0);
 }
 
 /* =========================================================
@@ -310,6 +297,107 @@ textarea {
 }
 
 /* =========================================================
+   BLOG ARTICLE
+   ========================================================= */
+
+.post-body {
+  width: 100%;
+  max-width: 100%;
+  color: var(--mf-foreground-soft);
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  overflow-wrap: break-word;
+}
+
+/* Paragraphs */
+
+.post-body .post-paragraph {
+  margin: 0 0 1.5rem;
+}
+
+.post-body .post-paragraph:last-child {
+  margin-bottom: 0;
+}
+
+/* Headings */
+
+.post-body .post-h2 {
+  margin: 3.5rem 0 1.25rem;
+  color: var(--mf-foreground);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.post-body .post-h3 {
+  margin: 2.5rem 0 1rem;
+  color: var(--mf-foreground);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Prevent the first heading from creating excessive top space */
+
+.post-body > :first-child {
+  margin-top: 0;
+}
+
+/* Lists */
+
+.post-body .post-list {
+  margin: 0 0 1.75rem;
+  padding-left: 1.5rem;
+}
+
+.post-body .post-list-bullet {
+  list-style: disc;
+}
+
+.post-body .post-list-number {
+  list-style: decimal;
+}
+
+.post-body .post-list li {
+  margin-bottom: 0.6rem;
+  padding-left: 0.25rem;
+}
+
+.post-body .post-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* Blockquotes */
+
+.post-body .post-blockquote {
+  margin: 2.5rem 0;
+  padding: 0.25rem 0 0.25rem 1.5rem;
+  border-left: 3px solid var(--mf-primary);
+
+  color: var(--mf-muted);
+  font-size: 1.125rem;
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.post-body .post-blockquote .post-paragraph {
+  margin-bottom: 0;
+}
+
+/* Links */
+
+.post-body .post-link {
+  color: var(--mf-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.post-body .post-link:hover {
+  color: var(--mf-primary-dark);
+}
+
+/* =========================================================
    REDUCED MOTION
    ========================================================= */
 
@@ -324,5 +412,40 @@ textarea {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 640px) {
+  .post-body {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .post-body .post-paragraph {
+    margin-bottom: 1.35rem;
+  }
+
+  .post-body .post-h2 {
+    margin-top: 2.75rem;
+    font-size: 1.5rem;
+  }
+
+  .post-body .post-h3 {
+    margin-top: 2.25rem;
+    font-size: 1.2rem;
+  }
+
+  .post-body .post-blockquote {
+    margin: 2rem 0;
+    padding-left: 1.15rem;
+    font-size: 1.05rem;
+  }
+
+  .post-body .post-list {
+    padding-left: 1.25rem;
   }
 }
