@@ -13,29 +13,42 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<header class="relative z-50 w-full border-b border-border-light bg-white/95">
-  <Container class="flex min-h-16 items-center justify-between gap-8">
+<header class="relative z-50 w-full px-3 pt-3 sm:px-5 sm:pt-5">
+  <Container
+    class="mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full bg-white px-5 shadow-[0_6px_24px_rgba(181,18,43,0.08)] sm:h-16 sm:px-7 lg:px-8"
+  >
     <!-- Logo -->
     <a href="/" aria-label="Mayflair Foods home" class="shrink-0">
-      <img
-        src="/images/mayflair-logo.svg"
-        alt="Mayflair Foods"
-        width="72"
-        height="42"
-        class="h-auto w-18"
-      />
+      <!-- Desktop -->
+      <span class="hidden md:block">
+        <img
+          src="/images/MAYFLAIR_LOGO.svg"
+          alt="Mayflair Foods"
+          width="102"
+          height="96"
+          class="h-10 w-auto object-contain"
+        />
+      </span>
+
+      <!-- Mobile -->
+      <span class="block md:hidden">
+        <img
+          src="/images/DP.svg"
+          alt="Mayflair Foods"
+          width="48"
+          height="48"
+          class="h-7 w-7 object-contain"
+        />
+      </span>
     </a>
 
     <!-- Desktop Navigation -->
-    <nav
-      class="ml-auto hidden items-center justify-center gap-6 md:flex"
-      aria-label="Main navigation"
-    >
+    <nav class="hidden items-center gap-7 md:flex" aria-label="Main navigation">
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="text-sm font-medium text-foreground transition-colors hover:text-primary"
+            class="text-sm font-normal text-foreground transition-colors hover:text-primary"
           >
             {item.label}
           </a>
@@ -46,12 +59,14 @@ const navItems: NavItem[] = [
     <!-- Desktop CTA -->
     <a
       href="/contact"
-      class="hidden min-h-8 items-center justify-center rounded-full bg-accent px-4 text-xs font-semibold text-white shadow-sm transition-colors hover:bg-accent-dark md:inline-flex"
+      class="hidden min-h-10 shrink-0 items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-foreground font-display transition-colors hover:bg-accent-dark md:inline-flex"
     >
       Contact Us
     </a>
 
     <!-- Mobile Menu -->
-    <MobileMenu items={navItems} client:load />
+    <div class="md:hidden">
+      <MobileMenu items={navItems} client:load />
+    </div>
   </Container>
 </header>
