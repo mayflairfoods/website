@@ -1,29 +1,28 @@
 import { type FormEvent, useState } from "react";
 
+type Status = "idle" | "loading" | "success" | "error";
+
 const API_URL = import.meta.env.PUBLIC_API_URL?.replace(/\/$/, "") || "";
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
-
+  const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    setStatus("loading");
-    setMessage("");
-
     const form = event.currentTarget;
     const formData = new FormData(form);
 
     const payload = {
-      name: String(formData.get("name") || ""),
-      email: String(formData.get("email") || ""),
-      phone: String(formData.get("phone") || ""),
-      message: String(formData.get("message") || ""),
+      name: String(formData.get("name") ?? "").trim(),
+      email: String(formData.get("email") ?? "").trim(),
+      phone: String(formData.get("phone") ?? "").trim(),
+      message: String(formData.get("message") ?? "").trim(),
     };
+
+    setStatus("loading");
+    setMessage("");
 
     try {
       const response = await fetch(`${API_URL}/api/contact`, {
@@ -39,6 +38,7 @@ export default function ContactForm() {
       }
 
       form.reset();
+
       setStatus("success");
       setMessage("Thanks for reaching out. We'll get back to you soon.");
     } catch {
@@ -49,65 +49,102 @@ export default function ContactForm() {
     }
   }
 
+  const isLoading = status === "loading";
+
   return (
     <form
       onSubmit={handleSubmit}
       className="rounded-2xl bg-white p-5 shadow-[0_8px_30px_rgba(181,18,43,0.07)] sm:p-7"
     >
       <div className="space-y-2.5">
-        <input
-          name="name"
-          type="text"
-          placeholder="Your name"
-          autoComplete="name"
-          required
-          className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20"
-        />
+        <div>
+          <label htmlFor="contact-name" className="sr-only">
+            Your name
+          </label>
 
-        <input
-          name="email"
-          type="email"
-          placeholder="Your email address"
-          autoComplete="email"
-          required
-          className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20"
-        />
+          <input
+            id="contact-name"
+            name="name"
+            type="text"
+            placeholder="Your name"
+            autoComplete="name"
+            required
+            disabled={isLoading}
+            className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </div>
 
-        <input
-          name="phone"
-          type="tel"
-          placeholder="Your phone number"
-          autoComplete="tel"
-          className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20"
-        />
+        <div>
+          <label htmlFor="contact-email" className="sr-only">
+            Your email address
+          </label>
 
-        <textarea
-          name="message"
-          placeholder="Enter your message"
-          rows={5}
-          required
-          className="w-full resize-none rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20"
-        />
+          <input
+            id="contact-email"
+            name="email"
+            type="email"
+            placeholder="Your email address"
+            autoComplete="email"
+            required
+            disabled={isLoading}
+            className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="contact-phone" className="sr-only">
+            Your phone number
+          </label>
+
+          <input
+            id="contact-phone"
+            name="phone"
+            type="tel"
+            placeholder="Your phone number"
+            autoComplete="tel"
+            disabled={isLoading}
+            className="w-full rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="contact-message" className="sr-only">
+            Enter your message
+          </label>
+
+          <textarea
+            id="contact-message"
+            name="message"
+            placeholder="Enter your message"
+            rows={5}
+            required
+            disabled={isLoading}
+            className="w-full resize-none rounded-lg bg-surface-muted px-4 py-3 text-xs text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
+          />
+        </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="mt-3 inline-flex min-h-10 items-center justify-center rounded-full bg-accent px-5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:opacity-60"
-      >
-        {status === "loading" ? "Sending..." : "Send your message"}
-      </button>
-
-      {message && (
-        <p
-          className={`mt-3 text-xs ${
-            status === "success" ? "text-success" : "text-danger"
-          }`}
-          role="status"
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <button
+          type="submit"
+          disabled={isLoading}
+          className="inline-flex min-h-10 items-center justify-center rounded-full bg-accent px-5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {message}
-        </p>
-      )}
+          {isLoading ? "Sending..." : "Send your message"}
+        </button>
+
+        {message && (
+          <p
+            className={`text-xs ${
+              status === "success" ? "text-success" : "text-danger"
+            }`}
+            role="status"
+            aria-live="polite"
+          >
+            {message}
+          </p>
+        )}
+      </div>
     </form>
   );
 }
