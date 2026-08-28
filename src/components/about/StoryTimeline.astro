@@ -24,7 +24,9 @@ const milestones = [
 <section class="py-16 sm:py-20 lg:py-24">
   <Container>
     <div class="mx-auto max-w-3xl">
-      <h2 class="text-center text-3xl md:text-4xl tracking-tight sm:text-3xl">
+      <h2
+        class="text-center text-3xl md:text-4xl tracking-tight lg:text-[2.75rem] font-medium"
+      >
         Our Story
       </h2>
 
@@ -39,17 +41,17 @@ const milestones = [
         <div class="space-y-8">
           {
             milestones.map((item) => (
-              <article class="relative pl-8 flex flex-col gap-3">
+              <article class="relative pl-8 flex flex-col gap-2">
                 <span
                   class="absolute left-0 top-1.5 h-3 w-3 rounded-full border-2 border-primary bg-white"
                   aria-hidden="true"
                 />
 
-                <h3 class="font-semibold text-foreground">{item.title}</h3>
+                <h3 class="font-semibold text-lg font-display text-foreground">
+                  {item.title}
+                </h3>
 
-                <p class="mt-2 text-sm leading-6 text-muted sm:text-sm sm:leading-6">
-                  {item.text}
-                </p>
+                <p class="leading-6 text-muted">{item.text}</p>
               </article>
             ))
           }
