@@ -1,29 +1,63 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Container from "@/components/layout/Container.astro";
-import ContactForm from "@/components/contact/ContactForm";
+
+const contactMethods = [
+  {
+    title: "Call us directly",
+    description: "Speak with us directly during business hours.",
+    value: "08012345678",
+    href: "tel:+2348012345678",
+    icon: "/icons/call-calling.svg",
+  },
+  {
+    title: "Email Support",
+    description: "For enquiries, partnerships and support.",
+    value: "hello@mayflairfoods.com",
+    href: "mailto:hello@mayflairfoods.com",
+    icon: "/icons/message-favorite.svg",
+  },
+  {
+    title: "Chat on WhatsApp",
+    description: "Get quick answers from our team.",
+    value: "Let's chat on WhatsApp",
+    href: "https://wa.link/cpo8so",
+    icon: "/icons/whatsapp.svg",
+  },
+];
+
+const outlets = [
+  {
+    name: "UNEC",
+    address: "MFS 5, Opposite Manuwa Bustop, UNEC, Enugu",
+    mapUrl: "https://maps.google.com/",
+  },
+  {
+    name: "Thinkers Corner",
+    address: "Godfrey Okoye University Backgate, Thinkers Corner, Enugu",
+    mapUrl: "https://maps.google.com/",
+  },
+];
 ---
 
 <BaseLayout
-  title="Contact Us | Mayflair Foods"
-  description="Questions, orders, feedback, or catering enquiries? Get in touch with Mayflair Foods."
+  title="Contact Mayflair Foods | We're Here Whenever You Need Us"
+  description="Questions, orders, feedback or catering enquiries? Get in touch with Mayflair Foods."
 >
-  <!-- =====================================================
-       HERO
-  ====================================================== -->
-  <section class="pt-16 sm:pt-20 lg:pt-24">
+  <!-- Hero -->
+  <section class="px-4 pb-12 pt-16 sm:pb-16 sm:pt-20 lg:pb-20 lg:pt-24">
     <Container>
       <div class="mx-auto max-w-2xl text-center">
         <h1
-          class="text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          class="text-4xl font-medium leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
         >
-          We&apos;re here&nbsp;
+          We're here&nbsp;
           <span class="bg-primary-soft px-1 text-primary">whenever</span>
           <br class="hidden sm:block" />
-          &nbsp;you need us
+          you need us
         </h1>
 
-        <p class="mx-auto mt-5 max-w-lg text-sm leading-relaxed text-muted">
+        <p class="mx-auto mt-5 max-w-lg leading-relaxed text-muted text-base">
           Questions, orders, feedback, or catering enquiries, we'd love to hear
           from you.
         </p>
@@ -32,285 +66,323 @@ import ContactForm from "@/components/contact/ContactForm";
           href="https://wa.link/cpo8so"
           target="_blank"
           rel="noopener noreferrer"
-          class="mt-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-primary px-5 text-xs font-semibold text-white transition-colors hover:bg-primary-dark"
+          class="mt-6 inline-flex min-h-10 items-center gap-2 rounded-full bg-primary px-6 py-4 font-semibold text-white! transition-colors hover:bg-primary-dark"
         >
-          <span
-            class="flex h-5 w-5 items-center justify-center rounded-full bg-white/15"
+          <img
+            src="/icons/whatsapp.svg"
+            alt=""
             aria-hidden="true"
-          >
-            ✓
-          </span>
+            class="max-h-6 w-6"
+          />
           Let's chat on WhatsApp
         </a>
       </div>
     </Container>
   </section>
 
-  <!-- =====================================================
-       HERO IMAGE
-  ====================================================== -->
-  <section class="mt-10 sm:mt-12 lg:mt-14">
+  <!-- Contact Form -->
+  <section class="pb-20 sm:pb-24 lg:pb-28">
     <Container>
-      <div class="overflow-hidden rounded-2xl sm:rounded-3xl">
-        <img
-          src="/images/contact-hero.jpg"
-          alt="Mayflair Foods dining space"
-          class="aspect-[16/7] w-full object-cover"
-          loading="eager"
-        />
-      </div>
-    </Container>
-  </section>
-
-  <!-- =====================================================
-       STATS
-  ====================================================== -->
-  <section class="py-10 sm:py-12">
-    <Container>
-      <div class="grid grid-cols-2 divide-x divide-border-light sm:grid-cols-4">
-        <div class="px-3 text-center sm:px-6">
-          <p class="font-display text-base font-semibold text-foreground">
-            10,000+
-          </p>
-          <p class="mt-0.5 text-[10px] text-muted">Orders Served</p>
-        </div>
-
-        <div class="px-3 text-center sm:px-6">
-          <p class="font-display text-base font-semibold text-foreground">
-            Made Fresh
-          </p>
-          <p class="mt-0.5 text-[10px] text-muted">Daily</p>
-        </div>
-
-        <div class="mt-5 border-l-0 px-3 text-center sm:mt-0 sm:px-6">
-          <p class="font-display text-base font-semibold text-foreground">
-            4.8/5
-          </p>
-          <p class="mt-0.5 text-[10px] text-muted">Orders Served</p>
-        </div>
-
-        <div class="mt-5 px-3 text-center sm:mt-0 sm:px-6">
-          <p class="font-display text-base font-semibold text-foreground">
-            Fast Delivery
-          </p>
-          <p class="mt-0.5 text-[10px] text-muted">to your location</p>
-        </div>
-      </div>
-    </Container>
-  </section>
-
-  <!-- =====================================================
-       CONTACT FORM
-  ====================================================== -->
-  <section class="py-14 sm:py-20 lg:py-24">
-    <Container>
-      <div class="grid items-start gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <!-- Copy -->
+      <div
+        class="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start lg:gap-20"
+      >
+        <!-- Intro -->
         <div class="max-w-md">
           <h2
-            class="text-3xl font-medium leading-tight tracking-tight text-foreground sm:text-4xl"
+            class="text-4xl font-medium leading-tight tracking-tight sm:text-[2.75rem]"
           >
-            Tell us how we
+            Tell us how
             <br class="hidden sm:block" />
-            can help
+            we can help
           </h2>
 
-          <p class="mt-4 text-sm leading-relaxed text-muted">
+          <p class="mt-4 leading-relaxed text-muted">
             Whether it's feedback, a catering request, or a simple question,
             we'll get back to you as soon as we can.
           </p>
 
-          <ul class="mt-7 space-y-3 text-xs text-muted">
-            <li class="flex items-center gap-2">
-              <span class="text-success" aria-hidden="true">✓</span>
+          <ul class="mt-7 space-y-2 text-muted">
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-success">✓</span>
               Replies within 24 hours
             </li>
 
-            <li class="flex items-center gap-2">
-              <span class="text-success" aria-hidden="true">✓</span>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-success">✓</span>
               Friendly support
             </li>
 
-            <li class="flex items-center gap-2">
-              <span class="text-success" aria-hidden="true">✓</span>
+            <li class="flex items-start gap-2">
+              <span class="mt-1 text-success">✓</span>
               We'd love to hear from you
             </li>
           </ul>
         </div>
 
-        <!-- React Form -->
-        <ContactForm client:load />
+        <!-- Form -->
+        <form
+          id="contact-form"
+          class="rounded-2xl bg-white p-5 shadow-[0_8px_30px_rgba(32,26,22,0.06)] sm:p-7"
+          novalidate
+        >
+          <div class="grid gap-3">
+            <div>
+              <label for="name" class="sr-only">Your name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="Your name"
+                required
+                class="w-full rounded-xl bg-surface-muted px-4 py-3 text-sm text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/30"
+              />
+            </div>
+
+            <div>
+              <label for="email" class="sr-only">Your email address</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="Your email address"
+                required
+                class="w-full rounded-xl bg-surface-muted px-4 py-3 text-sm text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/30"
+              />
+            </div>
+
+            <div>
+              <label for="phone" class="sr-only">Your phone number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autocomplete="tel"
+                placeholder="Your phone number"
+                class="w-full rounded-xl bg-surface-muted px-4 py-3 text-sm text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/30"
+              />
+            </div>
+
+            <div>
+              <label for="message" class="sr-only">Your message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="5"
+                placeholder="Enter your message"
+                required
+                class="w-full resize-none rounded-xl bg-surface-muted px-4 py-3 text-sm text-foreground outline-none ring-1 ring-transparent transition focus:ring-primary/30"
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <p
+            id="contact-status"
+            class="mt-3 hidden text-sm"
+            role="status"
+            aria-live="polite"
+          >
+          </p>
+
+          <button
+            id="contact-submit"
+            type="submit"
+            class="mt-4 inline-flex min-h-10 items-center justify-center rounded-full bg-accent px-5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <span data-submit-label>Send your message</span>
+          </button>
+        </form>
       </div>
     </Container>
   </section>
 
-  <!-- =====================================================
-       OUTLETS
-  ====================================================== -->
-  <section class="py-14 sm:py-20 lg:py-24">
+  <!-- Outlets -->
+  <section class="border-t border-border-light py-16 sm:py-20 lg:py-24">
     <Container>
       <div class="text-center">
-        <h2
-          class="text-3xl font-medium tracking-tight text-foreground sm:text-4xl"
-        >
+        <h2 class="text-4xl font-medium tracking-tight sm:text-[2.75rem]">
           Visit any of our Outlets
         </h2>
       </div>
 
-      <div class="mt-8 grid gap-4 sm:grid-cols-2">
-        <!-- UNEC -->
-        <article
-          class="rounded-xl border border-border-light bg-surface-muted p-5 sm:p-6"
-        >
-          <div class="flex items-start gap-3">
-            <span
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary"
-              aria-hidden="true"
-            >
-              •
-            </span>
+      <div class="mx-auto mt-8 grid max-w-5xl gap-4 md:gap-8 sm:grid-cols-2">
+        {
+          outlets.map((outlet) => (
+            <article class="rounded-2xl border border-border bg-surface-muted p-5">
+              <div class="flex items-start gap-3">
+                <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-soft">
+                  <img
+                    src="/icons/location-tick.svg"
+                    alt=""
+                    aria-hidden="true"
+                    class="h-4 w-4"
+                  />
+                </span>
 
-            <div>
-              <h3 class="text-sm font-medium text-foreground">UNEC Branch</h3>
+                <div>
+                  <h3 class="text-xl font-medium">{outlet.name}</h3>
 
-              <p class="mt-4 max-w-sm text-xs leading-relaxed text-muted">
-                44 Oaks Avenue, Opposite Manuwa Bustop UNEC, Enugu
-              </p>
+                  <p class="mt-4 max-w-sm leading-relaxed text-muted">
+                    {outlet.address}
+                  </p>
 
-              <a
-                href="https://maps.google.com/?q=44+Oaks+Avenue+UNEC+Enugu"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-4 inline-flex items-center text-xs font-semibold text-primary transition-colors hover:text-primary-dark"
-              >
-                View on Map
-                <span class="ml-1" aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-        </article>
-
-        <!-- UNEC -->
-        <article
-          class="rounded-xl border border-border-light bg-surface-muted p-5 sm:p-6"
-        >
-          <div class="flex items-start gap-3">
-            <span
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary-soft text-primary"
-              aria-hidden="true"
-            >
-              •
-            </span>
-
-            <div>
-              <h3 class="text-sm font-medium text-foreground">UNEC Branch</h3>
-
-              <p class="mt-4 max-w-sm text-xs leading-relaxed text-muted">
-                44 Oaks Avenue, Opposite Manuwa Bustop UNEC, Enugu
-              </p>
-
-              <a
-                href="https://maps.google.com/?q=44+Oaks+Avenue+UNEC+Enugu"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="mt-4 inline-flex items-center text-xs font-semibold text-primary transition-colors hover:text-primary-dark"
-              >
-                View on Map
-                <span class="ml-1" aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-        </article>
+                  <a
+                    href={outlet.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="mt-4 inline-flex text-sm font-display font-semibold text-primary! hover:text-primary-dark"
+                  >
+                    View on Map
+                    <span aria-hidden="true" class="ml-1">
+                      →
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </Container>
   </section>
 
-  <!-- =====================================================
-       DIRECT CONTACT
-  ====================================================== -->
+  <!-- Contact Methods -->
   <section class="bg-surface-warm py-16 sm:py-20 lg:py-24">
     <Container>
       <div class="mx-auto max-w-3xl text-center">
-        <h2
-          class="text-3xl font-medium tracking-tight text-foreground sm:text-4xl"
-        >
+        <h2 class="text-4xl font-medium tracking-tight sm:text-[2.75rem]">
           Got a question or feedback?
         </h2>
 
-        <p class="mx-auto mt-3 max-w-lg text-xs leading-relaxed text-muted">
+        <p class="mx-auto mt-3 max-w-xl leading-relaxed text-muted">
           Whether you have a question, feedback, or need help with an order,
           we're here to help.
         </p>
       </div>
 
-      <div class="mx-auto mt-10 grid gap-6 sm:grid-cols-3 sm:gap-6">
-        <!-- Phone -->
-        <div
-          class="text-center flex flex-col justify-center items-center gap-2"
+      <div class="mx-auto mt-10 grid max-w-5xl gap-10 sm:grid-cols-3">
+        {
+          contactMethods.map((method) => (
+            <article class="text-center flex flex-col items-center justify-center gap-2">
+              <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary-soft">
+                <img
+                  src={method.icon}
+                  alt=""
+                  aria-hidden="true"
+                  class="h-8 w-8"
+                />
+              </div>
+
+              <h3 class="text-xl">{method.title}</h3>
+
+              <p class="mx-auto max-w-xs  leading-relaxed text-muted">
+                {method.description}
+              </p>
+
+              <a
+                href={method.href}
+                target={method.href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  method.href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
+                class=" inline-block font-bold text-primary! hover:text-primary-dark"
+              >
+                {method.value}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- Mobile CTA -->
+  <section class="px-4 py-8 sm:hidden">
+    <Container>
+      <div class="overflow-hidden rounded-2xl bg-accent px-5 py-8 text-center">
+        <h2 class="text-2xl font-medium tracking-tight">Are you on the go?</h2>
+
+        <p
+          class="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-foreground/70"
         >
-          <div
-            class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-primary"
-          >
-            ☎
-          </div>
+          Order your favourites for pickup or delivery, we'll take care of the
+          rest.
+        </p>
 
-          <h3 class="mt-2 text-xl font-medium">Call us directly</h3>
-
-          <p class="text-muted">
-            Speak with us directly during business hours.
-          </p>
-
-          <a href="tel:+2348012345678" class="font-medium text-primary!">
-            08012345678
-          </a>
-        </div>
-
-        <!-- Email -->
-        <div
-          class="text-center flex flex-col justify-center items-center gap-2"
+        <a
+          href="https://wa.link/cpo8so"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="mt-5 inline-flex min-h-9 items-center justify-center rounded-full bg-primary px-5 text-xs font-semibold text-white"
         >
-          <div
-            class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-primary"
-          >
-            ✉
-          </div>
-
-          <h3 class="mt-2 text-xl font-medium">Email Support</h3>
-
-          <p class="text-muted">For enquiries, partnerships and support.</p>
-
-          <a
-            href="mailto:hello@mayflairfoods.com"
-            class="font-medium text-primary!"
-          >
-            hello@mayflairfoods.com
-          </a>
-        </div>
-
-        <!-- WhatsApp -->
-        <div
-          class="text-center flex flex-col justify-center items-center gap-2"
-        >
-          <div
-            class="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-primary-soft text-primary"
-          >
-            ✓
-          </div>
-
-          <h3 class="mt-1 text-xl font-medium">Chat on WhatsApp</h3>
-
-          <p class="text-muted">Get quick answers from our team.</p>
-
-          <a
-            href="https://wa.link/cpo8so"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="mt-3 inline-flex min-h-10 items-center justify-center rounded-full bg-primary px-4 font-semibold text-white! transition-colors hover:bg-primary-dark text-sm"
-          >
-            Let's chat on WhatsApp
-          </a>
-        </div>
+          Order Now
+        </a>
       </div>
     </Container>
   </section>
 </BaseLayout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contact-form");
+  const submitButton =
+    document.querySelector<HTMLButtonElement>("#contact-submit");
+  const submitLabel = document.querySelector<HTMLElement>(
+    "[data-submit-label]",
+  );
+  const status = document.querySelector<HTMLElement>("#contact-status");
+
+  if (form && submitButton && submitLabel && status) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      status.classList.add("hidden");
+      submitButton.disabled = true;
+      submitLabel.textContent = "Sending...";
+
+      const formData = new FormData(form);
+
+      const payload = {
+        name: String(formData.get("name") || "").trim(),
+        email: String(formData.get("email") || "").trim(),
+        phone: String(formData.get("phone") || "").trim(),
+        message: String(formData.get("message") || "").trim(),
+      };
+
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result?.message || "Something went wrong.");
+        }
+
+        form.reset();
+
+        status.textContent =
+          "Thanks for reaching out. We'll get back to you soon.";
+        status.className = "mt-3 text-sm text-success";
+      } catch (error) {
+        status.textContent =
+          error instanceof Error
+            ? error.message
+            : "We couldn't send your message. Please try again.";
+
+        status.className = "mt-3 text-sm text-danger";
+      } finally {
+        submitButton.disabled = false;
+        submitLabel.textContent = "Send your message";
+      }
+    });
+  }
+</script>
