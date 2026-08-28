@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+
 import GoogleAnalytics from "@/components/analytics/GoogleAnalytics.astro";
 import Header from "../components/layout/Header.astro";
 import Footer from "../components/layout/Footer.astro";
@@ -19,20 +21,17 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-const ogImageURL = new URL(image, Astro.site);
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="theme-color" content="#A51C32" />
 
     <title>{title}</title>
-
     <meta name="description" content={description} />
 
     <link rel="canonical" href={canonicalURL} />
@@ -44,18 +43,19 @@ const ogImageURL = new URL(image, Astro.site);
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image" content={image} />
     <meta property="og:site_name" content="Mayflair Foods" />
 
-    <!-- Twitter / X -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:image" content={image} />
 
-    <!-- Favicon -->
     <link rel="icon" href="/favicon.svg" />
+
+    <!-- Astro View Transitions -->
+    <ClientRouter />
 
     <slot name="head" />
 
