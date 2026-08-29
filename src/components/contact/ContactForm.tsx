@@ -128,7 +128,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={isLoading}
-          className="inline-flex min-h-10 items-center justify-center rounded-full bg-accent px-5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex min-h-10 font-display items-center justify-center rounded-full bg-accent px-5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isLoading ? "Sending..." : "Send your message"}
         </button>

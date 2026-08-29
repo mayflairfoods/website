@@ -1,0 +1,192 @@
+
+---
+import Container from "@/components/layout/Container.astro";
+
+const features = [
+  {
+    title: "Order Anytime",
+    description: "Easy online ordering",
+    icon: "location",
+  },
+  {
+    title: "Fast Delivery",
+    description: "Quick delivery to your location",
+    icon: "delivery",
+  },
+  {
+    title: "Trusted Delivery Partner",
+    description: "Godere",
+    icon: "shield",
+  },
+];
+---
+
+<section class="py-16 sm:py-20 lg:py-24">
+  <Container>
+    <div class="mx-auto max-w-6xl">
+
+      <!-- Main Delivery Card -->
+      <div class="grid gap-4 lg:grid-cols-[1fr_1fr]">
+
+        <!-- Content -->
+        <div
+          class="relative flex min-h-130  overflow-hidden rounded-4xl bg-[#fbf6f3] p-8 sm:p-10 lg:p-12"
+        >
+          <!-- Background artwork -->
+          <img
+            src="/images/home/delivery-bg.webp"
+            alt=""
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-70"
+          />
+
+          <!-- Content -->
+          <div class="relative z-10 flex w-full justify-center items-center text-center md:justify-start md:items-start md:text-left flex-col">
+
+            <!-- Badge -->
+            <div
+              class="inline-flex w-fit items-center gap-2 rounded-full border border-primary/70 px-4 py-2 text-xs font-medium text-primary"
+            >
+              <!-- Replace with your public SVG icon -->
+              <img
+                src="/icons/home/bike.svg"
+                alt=""
+                aria-hidden="true"
+                class="h-4 w-4"
+              />
+
+              <span>QUICK DELIVERY</span>
+            </div>
+
+            <!-- Heading -->
+            <div class="mt-7 max-w-md">
+              <h2
+                class="text-4xl font-medium leading-[1.15] tracking-tight text-foreground sm:text-5xl"
+              >
+                Skip the queue
+
+                <span class="mt-2 block text-primary">
+                  Let&apos;s come to you
+                </span>
+              </h2>
+
+              <p
+                class="mt-6 max-w-lg text-base leading-relaxed text-muted sm:text-lg"
+              >
+                Whether you're at home, on campus, or at the office,
+                we'll bring your favorites right to your doorstep,
+                fresh, fast, and ready to enjoy.
+              </p>
+            </div>
+
+            <!-- Actions -->
+            <div
+              class="mt-auto flex flex-wrap items-end gap-3 pt-10"
+            >
+              <a
+                href="https://wa.link/cpo8so"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-12 items-center justify-center text-[#584013] rounded-full bg-accent px-7 font-display text-base font-medium  transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-dark"
+              >
+                Order Now
+              </a>
+
+              <div class="relative pt-5">
+                <span
+                  class="absolute left-1/2 top-0 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-[10px] font-semibold text-white"
+                >
+                  COMING SOON
+                </span>
+
+                <button
+                  type="button"
+                  disabled
+                  class="inline-flex min-h-12 items-center justify-center rounded-full border border-primary/70 px-7 font-display text-base font-medium text-primary opacity-90"
+                >
+                  Track your order
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Delivery Image -->
+        <div class="relative min-h-105 overflow-hidden rounded-4xl lg:min-h-full">
+          <img
+            src="/images/home/delivery.webp"
+            alt="Mayflair delivery rider handing an order to a customer"
+            class="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Delivery Features -->
+      <div
+        class="mt-4 grid overflow-hidden rounded-4xl bg-surface-muted sm:grid-cols-3"
+      >
+        {
+          features.map((feature, index) => (
+            <div
+              class:list={[
+                "flex items-center gap-4 px-6 py-6 sm:px-8",
+                index < features.length - 1 &&
+                  "border-b border-border sm:border-b-0 sm:border-r",
+              ]}
+            >
+              <!-- Icon -->
+              <div
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10"
+              >
+                {
+                  feature.icon === "location" && (
+                    <img
+                      src="/icons/home/location.svg"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-5 w-5"
+                    />
+                  )
+                }
+
+                {
+                  feature.icon === "delivery" && (
+                    <img
+                      src="/icons/home/bike.svg"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-5 w-5"
+                    />
+                  )
+                }
+
+                {
+                  feature.icon === "shield" && (
+                    <img
+                      src="/icons/home/shield-tick.svg"
+                      alt=""
+                      aria-hidden="true"
+                      class="h-5 w-5"
+                    />
+                  )
+                }
+              </div>
+
+              <div>
+                <h3 class="text-sm font-semibold text-foreground">
+                  {feature.title}
+                </h3>
+
+                <p class="mt-1 text-sm text-muted">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+    </div>
+  </Container>
+</section>
