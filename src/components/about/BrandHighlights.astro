@@ -3,24 +3,24 @@ import Container from "@/components/layout/Container.astro";
 
 const highlights = [
   {
-    icon: "⚡",
+    icon: "fast-delivery.svg",
     title: "Fast Delivery",
     description:
       "Hot, fresh, and on time. We make sure your cravings get to you fast.",
   },
   {
-    icon: "☕",
+    icon: "customer-service.svg",
     title: "Friendly Service",
     description:
       "From first hello to the last bite, we're here to serve you with warmth.",
   },
   {
-    icon: "🎓",
+    icon: "campus-favourite.svg",
     title: "Campus Favorite",
     description: "Loved by students, trusted by many, and part of campus life.",
   },
   {
-    icon: "♥",
+    icon: "community.svg",
     title: "Community Oriented",
     description: "Loved by our community and proud to be part of campus life.",
   },
@@ -31,7 +31,7 @@ const highlights = [
   <Container>
     <div class="text-center max-w-2xl mx-auto!">
       <h2
-        class="text-center text-3xlmd:text-4xl tracking-tight lg:text-[2.75rem] font-medium"
+        class="text-center text-3xl md:text-[2.75rem] tracking-tight font-medium"
       >
         The little things people
         <span class="relative"> love about us </span>
@@ -41,16 +41,18 @@ const highlights = [
     <div class="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-8 md:grid-cols-4">
       {
         highlights.map((item) => (
-          <article class="text-center gap-2 flex flex-col">
-            <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white text-2xl shadow-sm">
-              {item.icon}
-            </div>
+          <article class="text-center gap-2 items-center justify-center flex flex-col">
+            <img
+              src={`/illustrations/about/${item.icon}`}
+              alt=""
+              class="w-36 h-24 aspect-3/2"
+            />
 
-            <h3 class="font-display text-lg mt-2 font-semibold text-foreground">
+            <h3 class="font-display text-lg mt-2 font-semibold text-[#414141]">
               {item.title}
             </h3>
 
-            <p class="eading-5 text-muted">{item.description}</p>
+            <p class="leading-5 text-muted">{item.description}</p>
           </article>
         ))
       }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface GalleryImage {
   src: string;
@@ -7,96 +7,324 @@ interface GalleryImage {
 
 const images: GalleryImage[] = [
   {
-    src: "/images/about/life-1.jpg",
-    alt: "Mayflair team sharing a meal",
+    src: "/images/home/slides/1.webp",
+    alt: "Mayflair customers sharing a meal",
   },
   {
-    src: "/images/about/life-2.jpg",
+    src: "/images/home/slides/2.webp",
     alt: "Fresh Mayflair food",
   },
   {
-    src: "/images/about/life-3.jpg",
-    alt: "Mayflair pasta",
+    src: "/images/home/slides/3.webp",
+    alt: "A Mayflair pasta dish",
   },
   {
-    src: "/images/about/life-4.jpg",
-    alt: "Mayflair burger and fries",
+    src: "/images/home/slides/4.webp",
+    alt: "Freshly prepared Mayflair food",
   },
   {
-    src: "/images/about/life-5.jpg",
-    alt: "Mayflair team member",
+    src: "/images/home/slides/5.webp",
+    alt: "Fresh Mayflair bread",
   },
   {
-    src: "/images/about/life-6.jpg",
-    alt: "Mayflair food",
+    src: "/images/home/slides/6.webp",
+    alt: "A Mayflair burger and fries",
   },
 ];
 
+const topRow = images.slice(0, 3);
+const bottomRow = images.slice(3, 6);
+
+interface ImageRowProps {
+  images: GalleryImage[];
+  direction: "left" | "right";
+  onSelect: (image: GalleryImage) => void;
+}
+
+function ImageRow({ images, direction, onSelect }: ImageRowProps) {
+  return (
+    <div className="gallery-row" data-direction={direction}>
+      <div className="gallery-track">
+        {/* Original images */}
+        <div className="gallery-set">
+          {images.map((image) => (
+            <button
+              key={image.src}
+              type="button"
+              className="gallery-image"
+              onClick={() => onSelect(image)}
+              aria-label={`View ${image.alt}`}
+            >
+              <img src={image.src} alt={image.alt} loading="lazy" />
+            </button>
+          ))}
+        </div>
+
+        {/* Duplicate images for seamless looping */}
+        <div className="gallery-set" aria-hidden="true">
+          {images.map((image) => (
+            <div key={`duplicate-${image.src}`} className="gallery-image">
+              <img src={image.src} alt="" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+interface LightboxProps {
+  activeIndex: number;
+  onClose: () => void;
+  onPrevious: () => void;
+  onNext: () => void;
+}
+
+function Lightbox({ activeIndex, onClose, onPrevious, onNext }: LightboxProps) {
+  const image = images[activeIndex];
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowLeft") onPrevious();
+      if (event.key === "ArrowRight") onNext();
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [onClose, onPrevious, onNext]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm sm:p-8"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Image viewer"
+      onClick={onClose}
+    >
+      {/* Close */}
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close image viewer"
+        className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-2xl text-white backdrop-blur transition hover:bg-white/20 sm:right-7 sm:top-7"
+      >
+        ×
+      </button>
+
+      {/* Previous */}
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          onPrevious();
+        }}
+        aria-label="Previous image"
+        className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white backdrop-blur transition hover:bg-white/20 sm:left-7 sm:h-12 sm:w-12"
+      >
+        ←
+      </button>
+
+      {/* Image */}
+      <div
+        className="flex max-h-[85vh] max-w-[88vw] items-center justify-center"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          className="max-h-[85vh] max-w-full rounded-2xl object-contain shadow-2xl"
+        />
+      </div>
+
+      {/* Next */}
+      <button
+        type="button"
+        onClick={(event) => {
+          event.stopPropagation();
+          onNext();
+        }}
+        aria-label="Next image"
+        className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-2xl text-white backdrop-blur transition hover:bg-white/20 sm:right-7 sm:h-12 sm:w-12"
+      >
+        →
+      </button>
+
+      {/* Counter */}
+      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 text-sm text-white/70">
+        {activeIndex + 1} / {images.length}
+      </div>
+    </div>
+  );
+}
+
 export default function LifeAtMayflair() {
-  const [activeImage, setActiveImage] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  function openImage(image: GalleryImage) {
+    setActiveIndex(images.findIndex((item) => item.src === image.src));
+  }
+
+  function closeLightbox() {
+    setActiveIndex(null);
+  }
+
+  function showPrevious() {
+    setActiveIndex((current) => {
+      if (current === null) return null;
+
+      return current === 0 ? images.length - 1 : current - 1;
+    });
+  }
+
+  function showNext() {
+    setActiveIndex((current) => {
+      if (current === null) return null;
+
+      return current === images.length - 1 ? 0 : current + 1;
+    });
+  }
 
   return (
     <>
-      <section className="bg-white py-16 sm:py-20 lg:py-24">
-        <div className="mx-auto w-full max-w-6xl px-5 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h2 className="text-3xl font-semibold tracking-tight sm:text-3xl">
-              Life at Mayflair
-            </h2>
+      <section className="overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+        {/* Heading */}
+        <div className="mx-auto max-w-6xl px-5 text-center sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-[2.75rem]">
+            Life at Mayflair
+          </h2>
 
-            <p className="mx-auto mt-3 max-w-xl leading-6 text-muted">
-              These principles guide how we treat our customers, support our
-              teammates, and show up every single day.
-            </p>
-          </div>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
+            A little look into the food, people, moments and experiences that
+            make Mayflair what it is.
+          </p>
+        </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-1 overflow-hidden rounded-2xl md:grid-cols-4">
-            {images.map((image, index) => (
-              <button
-                key={image.src}
-                type="button"
-                onClick={() => setActiveImage(index)}
-                className="group relative overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset"
-                aria-label={`View ${image.alt}`}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105"
-                />
+        {/* Moving Gallery */}
+        <div className="mt-10 space-y-1 bg-primary sm:mt-12 sm:space-y-2 py-1">
+          <ImageRow images={topRow} direction="right" onSelect={openImage} />
 
-                <span className="absolute inset-0 bg-black/0 transition group-hover:bg-black/10" />
-              </button>
-            ))}
-          </div>
+          <ImageRow images={bottomRow} direction="left" onSelect={openImage} />
         </div>
       </section>
 
-      {activeImage !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-5"
-          role="dialog"
-          aria-modal="true"
-          onClick={() => setActiveImage(null)}
-        >
-          <button
-            type="button"
-            onClick={() => setActiveImage(null)}
-            className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-xl text-white backdrop-blur transition hover:bg-white/20"
-            aria-label="Close image"
-          >
-            ×
-          </button>
-
-          <img
-            src={images[activeImage].src}
-            alt={images[activeImage].alt}
-            className="max-h-[85vh] max-w-[90vw] rounded-xl object-contain"
-            onClick={(event) => event.stopPropagation()}
-          />
-        </div>
+      {activeIndex !== null && (
+        <Lightbox
+          activeIndex={activeIndex}
+          onClose={closeLightbox}
+          onPrevious={showPrevious}
+          onNext={showNext}
+        />
       )}
+
+      <style>{`
+        .gallery-row {
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .gallery-track {
+          display: flex;
+          width: max-content;
+          will-change: transform;
+        }
+
+        .gallery-set {
+          display: flex;
+          flex: none;
+          gap: 0.25rem;
+          padding-right: 0.25rem;
+        }
+
+        .gallery-image {
+          position: relative;
+          display: block;
+          flex: none;
+          width: clamp(240px, 32vw, 500px);
+          aspect-ratio: 1.45 / 1;
+          overflow: hidden;
+          border: 0;
+          border-radius: 1.5rem;
+          padding: 0;
+          background: var(--mf-surface-muted);
+          cursor: pointer;
+        }
+
+        .gallery-image img {
+          display: block;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 500ms ease;
+        }
+
+        .gallery-image:hover img {
+          transform: scale(1.04);
+        }
+
+        [data-direction="left"] .gallery-track {
+          animation: gallery-left 30s linear infinite;
+        }
+
+        [data-direction="right"] .gallery-track {
+          animation: gallery-right 30s linear infinite;
+        }
+
+        .gallery-row:hover .gallery-track,
+        .gallery-row:focus-within .gallery-track {
+          animation-play-state: paused;
+        }
+
+        @keyframes gallery-left {
+          from {
+            transform: translateX(0);
+          }
+
+          to {
+            transform: translateX(-50%);
+          }
+        }
+
+        @keyframes gallery-right {
+          from {
+            transform: translateX(-50%);
+          }
+
+          to {
+            transform: translateX(0);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .gallery-set {
+            gap: 0.5rem;
+            padding-right: 0.5rem;
+          }
+
+          .gallery-image {
+            width: 72vw;
+            border-radius: 1.25rem;
+          }
+
+          [data-direction="left"] .gallery-track,
+          [data-direction="right"] .gallery-track {
+            animation-duration: 24s;
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .gallery-track {
+            animation: none !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
