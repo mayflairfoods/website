@@ -1,0 +1,23 @@
+---
+import GalleryBox from "../shared/GalleryBox";
+---
+
+<section class="overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
+  {/* Heading */}
+  <div class="mx-auto max-w-6xl px-5 text-center sm:px-6 lg:px-8">
+    <h2
+      class="text-3xl font-medium tracking-tight text-foreground md:text-[2.75rem]"
+    >
+      A peek into <span class="relative">Mayflair Moments</span>
+    </h2>
+
+    <p
+      class="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base"
+    >
+      Behind every order is a story—friends catching up, customers discovering a
+      new favourite, and moments worth sharing.
+    </p>
+  </div>
+
+  <GalleryBox client:visible />
+</section>
