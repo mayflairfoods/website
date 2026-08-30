@@ -165,7 +165,7 @@ function Lightbox({ activeIndex, onClose, onPrevious, onNext }: LightboxProps) {
   );
 }
 
-export default function LifeAtMayflair() {
+export default function GalleryBox() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   function openImage(image: GalleryImage) {
@@ -194,26 +194,12 @@ export default function LifeAtMayflair() {
 
   return (
     <>
-      <section className="overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
-        {/* Heading */}
-        <div className="mx-auto max-w-6xl px-5 text-center sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-medium tracking-tight text-foreground md:text-[2.75rem]">
-            Life at Mayflair
-          </h2>
+      {/* Moving Gallery */}
+      <div className="mt-10 space-y-1 bg-primary sm:mt-12 sm:space-y-2 py-1">
+        <ImageRow images={topRow} direction="right" onSelect={openImage} />
 
-          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted sm:text-base">
-            A little look into the food, people, moments and experiences that
-            make Mayflair what it is.
-          </p>
-        </div>
-
-        {/* Moving Gallery */}
-        <div className="mt-10 space-y-1 bg-primary sm:mt-12 sm:space-y-2 py-1">
-          <ImageRow images={topRow} direction="right" onSelect={openImage} />
-
-          <ImageRow images={bottomRow} direction="left" onSelect={openImage} />
-        </div>
-      </section>
+        <ImageRow images={bottomRow} direction="left" onSelect={openImage} />
+      </div>
 
       {activeIndex !== null && (
         <Lightbox

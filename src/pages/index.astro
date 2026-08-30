@@ -4,13 +4,14 @@ import Container from "../components/layout/Container.astro";
 import StatComponent from "@/components/shared/StatComponent.astro";
 
 import DeliverySection from "@/components/home/DeliverySection.astro";
+import PeekIntoMayflair from "@/components/home/PeekIntoMayflair.astro";
 ---
 
 <BaseLayout
   title="Mayflair Foods | Good Food, Always."
   description="Good food, warm hospitality, and memorable experiences."
 >
-  <section class="relative py-20 sm:py-24 lg:py-32 isolate">
+  <section class="relative py-20 sm:py-24 isolate">
     <!-- Actual hero background -->
     <div
       class="absolute top-0 -z-10 w-full h-full bg-[url(/images/home/hero-bg.webp)] bg-cover bg-center bg-no-repeat"
@@ -18,33 +19,51 @@ import DeliverySection from "@/components/home/DeliverySection.astro";
     </div>
 
     <Container>
-      <div class="mx-auto max-w-3xl text-center">
+      <div class="mx-auto max-w-4xl text-center">
         <h1
-          class="text-4xl font-medium tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+          class="text-[2.75rem] font-medium tracking-tight text-foreground sm:text-6xl lg:text-7xl"
         >
           Hungry? Say Less.
         </h1>
 
         <p
-          class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted sm:text-lg"
+          class="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted sm:text-lg"
         >
           Whether it's a quick lunch, a study break, a team hangout, or a
           well-deserved treat, there's always something good waiting at
           Mayflair.
         </p>
 
-        <div class="mt-8 flex justify-center">
+        <div
+          class="mt-auto flex flex-wrap justify-center items-center gap-2 md:gap-4 pt-10"
+        >
           <a
             href="https://wa.link/cpo8so"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex min-h-11 items-center justify-center rounded-full bg-primary px-6 font-display font-medium text-white! transition-colors hover:bg-primary-dark"
+            class="inline-flex min-h-12 items-center justify-center text-[#584013] rounded-full bg-accent px-6 font-display text-base font-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-dark"
           >
             Order Now
           </a>
+
+          <div class="relative">
+            <span
+              class="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary -z-10 px-3 py-1 text-[10px] font-semibold text-white"
+            >
+              COMING SOON
+            </span>
+
+            <button
+              type="button"
+              disabled
+              class="inline-flex min-h-12 items-center justify-center rounded-full border border-primary/70 px-6 font-display text-base font-medium text-primary bg-white"
+            >
+              Track your order
+            </button>
+          </div>
         </div>
 
-        <div class="relative mt-10 w-full max-w-4xl">
+        <div class="relative mt-8 w-full mx-auto max-w-2xl">
           <img
             src="/images/home-hero.webp"
             alt="Mayflair Foods meals"
@@ -64,16 +83,19 @@ import DeliverySection from "@/components/home/DeliverySection.astro";
         class="flex flex-col max-w-3xl mx-auto gap-8 mt-12 items-center justify-center text-center leading-9 text-[#414141] tracking-tighter"
       >
         <p class="text-lg sm:text-xl md:text-2xl">
-          At Mayflair, we believe good food should feel effortless. That's why
-          we focus on creating flavorful meals, delightful treats, and memorable
-          experiences that fit naturally into your day, whether you're dining
-          in, picking up, or ordering online.
+          At Mayflair, we believe <span class="bg-primary/30 text-primary"
+            >good food</span
+          > should feel effortless. That's why we focus on creating flavorful meals,
+          delightful treats, and <span class="bg-accent/30 text-[#584013]"
+            >memorable experiences</span
+          > that fit naturally into your day, whether you're dining in, picking up,
+          or ordering online.
         </p>
 
         <a
           href=".about"
           target="_blank"
-          class="min-h-10 shrink-0 mt-4 py-2 items-center justify-center rounded-full bg-accent px-6 font-semibold text-[#584013] font-display transition-colors hover:bg-accent-dark flex"
+          class="shrink-0 mt-2 py-2 items-center justify-center rounded-full bg-accent px-6 font-semibold text-[#584013] font-display transition-colors hover:bg-accent-dark flex"
         >
           Learn more
         </a>
@@ -82,4 +104,6 @@ import DeliverySection from "@/components/home/DeliverySection.astro";
   </section>
 
   <DeliverySection />
+
+  <PeekIntoMayflair />
 </BaseLayout>
