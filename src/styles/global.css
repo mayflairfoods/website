@@ -79,6 +79,7 @@
 
   --mf-accent: #e2a229;
   --mf-accent-dark: #c88b17;
+  --mf-accent-deep: #b58127;
   --mf-accent-soft: #fff4d8;
 
   --mf-background: #ffffff;
@@ -117,6 +118,7 @@
   --color-primary-soft: var(--mf-primary-soft);
 
   --color-accent: var(--mf-accent);
+  --color-accent-deep: var(--mf-accent-deep);
   --color-accent-dark: var(--mf-accent-dark);
   --color-accent-soft: var(--mf-accent-soft);
 

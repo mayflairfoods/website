@@ -44,7 +44,7 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
        CTA
   ====================================================== -->
   <section
-    class="relative z-10 mx-auto -mb-15 w-full max-w-[1280px] px-4 sm:-mb-17.5 sm:px-6 lg:px-8"
+    class="relative z-10 mx-auto -mb-15 w-full max-w-[1280px] px-4 sm:-mb-17.5 sm:px-6 lg:px-8 mt-20"
   >
     <div
       class="relative overflow-hidden rounded-4xl bg-accent px-6 py-10 text-center sm:px-10 sm:py-12 lg:px-16 lg:py-14"
@@ -115,13 +115,11 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
   <!-- =====================================================
        FOOTER
   ====================================================== -->
-  <footer
-    class="overflow-hidden bg-primary pt-26.25 text-white sm:pt-31.25 lg:pt-33.75"
-  >
+  <footer class="overflow-hidden bg-primary pt-24 text-white sm:pt-32 lg:pt-36">
     <div class="border-b border-white/10">
       <Container class="py-10 sm:py-12 lg:py-14">
         <div
-          class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:gap-12"
+          class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr] lg:gap-12"
         >
           <!-- Brand + Newsletter -->
           <div class="min-w-0">
@@ -135,19 +133,12 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
               />
             </a>
 
-            <p class="mt-1 text-sm text-white/80">Good food, always</p>
-
+            <!-- <p class="mt-1 text-sm text-white/80">Good food, always</p> -->
             <!-- Newsletter -->
-            <div class="mt-6">
-              <h2 class="text-base font-medium">Cool stuffs only</h2>
-
-              <p class="mt-1 text-sm text-accent">
-                Subscribe to our newsletter
-              </p>
-
+            <div class="mt-4">
               <form
                 id="newsletter-form"
-                class="mt-4 flex w-full min-w-0 max-w-md items-center rounded-full bg-white/10 p-1"
+                class="mt-2 flex w-full min-w-0 max-w-md items-center rounded-full bg-white/10"
               >
                 <label for="newsletter-email" class="sr-only">
                   Your email address
@@ -165,7 +156,7 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
 
                 <button
                   type="submit"
-                  class="shrink-0 rounded-full bg-accent px-5 py-2.5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
+                  class="shrink-0 rounded-full font-display bg-accent px-5 py-2.5 text-xs font-semibold text-foreground transition-colors hover:bg-accent-dark disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   Subscribe
                 </button>
@@ -177,6 +168,9 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
                 role="status"
                 aria-live="polite"
               >
+              </p>
+              <p class="mt-2 text-sm ml-2 font-display text-accent">
+                Good food, always.
               </p>
             </div>
           </div>
@@ -202,19 +196,6 @@ const headOffice = "40, Oseni Salawu Street, Egan Igando, Lagos.";
                 ))
               }
             </nav>
-          </div>
-
-          <!-- Head Office -->
-          <div class="min-w-0">
-            <h2 class="text-xs font-bold uppercase tracking-wide">
-              Head Office
-            </h2>
-
-            <address
-              class="mt-4 max-w-xs text-sm not-italic leading-relaxed text-white/80"
-            >
-              {headOffice}
-            </address>
           </div>
 
           <!-- Contact -->
