@@ -1,0 +1,395 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/layout/Container.astro";
+
+const expectations = [
+  {
+    title: "Put people first",
+    description:
+      "Every customer interaction is a chance to make someone's day a little better.",
+    icon: "/icons/careers/cup.svg",
+  },
+  {
+    title: "Work as one team",
+    description:
+      "We show up for each other and work together to make great things happen.",
+    icon: "/icons/careers/people.svg",
+  },
+  {
+    title: "Learn by doing",
+    description:
+      "Every task teaches us something new, helping you build confidence and valuable skills.",
+    icon: "/icons/careers/scissor.svg",
+  },
+  {
+    title: "Do your best work",
+    description:
+      "We give everyone room to grow, own their work and enjoy the experience.",
+    icon: "/icons/careers/designtools.svg",
+  },
+];
+
+const perks = [
+  {
+    title: "Staff Meals",
+    description: "Enjoy freshly prepared meals during your shifts.",
+    icon: "/illustrations/careers/meal.svg",
+  },
+  {
+    title: "Learn & Grow",
+    description: "Gain hands-on experience relevant to your role.",
+    icon: "/illustrations/careers/learn.svg",
+  },
+  {
+    title: "Fun Team Culture",
+    description: "Work with friendly people who support one another.",
+    icon: "/illustrations/careers/growth.svg",
+  },
+  {
+    title: "Rewards",
+    description: "Great work is properly recognised and celebrated.",
+    icon: "/illustrations/careers/rewards.svg",
+  },
+  {
+    title: "Flexible Scheduling",
+    description: "We do our best to support your schedule.",
+    icon: "/illustrations/careers/flexible.svg",
+  },
+  {
+    title: "Career Growth",
+    description: "Grow your career as Mayflair grows.",
+    icon: "/illustrations/careers/growth.svg",
+  },
+];
+
+const roleGroups = [
+  {
+    title: "Kitchen Operations",
+    roles: [],
+  },
+  {
+    title: "Customer Experience",
+    roles: [
+      {
+        title: "Customer Service Representative",
+        type: "Enugu • Full-time",
+      },
+    ],
+  },
+  {
+    title: "Marketing & Brand",
+    roles: [
+      {
+        title: "Graphic Designer",
+        type: "Remote",
+      },
+      {
+        title: "Social Media Manager",
+        type: "Remote • Full-time",
+      },
+      {
+        title: "Copywriter / Blog Writer",
+        type: "Remote • Part-time",
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Careers | Mayflair Foods"
+  description="Build meaningful experiences, grow your skills, and be part of the Mayflair team."
+>
+  <!-- Hero -->
+  <section class="pt-16 sm:pt-20 lg:pt-24">
+    <Container>
+      <div class="text-center">
+        <h1
+          class="text-4xl font-medium leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+        >
+          Love good food?
+          <span class="block">Come build with us.</span>
+        </h1>
+
+        <p
+          class="mx-auto mt-4 max-w-2xl leading-relaxed text-muted sm:text-base"
+        >
+          Whether you're in the kitchen, behind the scenes, or bringing the
+          customer experience to life, there's a place for you at Mayflair.
+        </p>
+
+        <a
+          href="#open-roles"
+          class="mt-6 inline-flex min-h-10 items-center justify-center rounded-full bg-primary px-6 font-display py-2 font-medium text-white! transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-dark"
+        >
+          View open roles
+        </a>
+
+        <div class="mt-10 overflow-hidden rounded-3xl sm:mt-12 sm:rounded-4xl">
+          <img
+            src="/images/careers-hero.webp"
+            alt="Mayflair Foods team"
+            class="md:aspect-16/7 h-72! inset-0 md:h-auto! w-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Introduction -->
+  <section class="py-20 sm:py-24 lg:py-32">
+    <Container>
+      <div class="mx-auto max-w-2xl">
+        <h2
+          class="text-3xl font-medium tracking-tight text-foreground sm:text-4xl"
+        >
+          Hey there,
+        </h2>
+
+        <div
+          class="mt-6 max-w-4xl space-y-4 flex flex-col gap-4 leading-relaxed text-muted text-base"
+        >
+          <p>
+            At Mayflair, you'll do more than clock in and out. You might be
+            preparing fresh meals, welcoming customers, packing deliveries,
+            supporting our campaigns, or helping out on one of our busiest days.
+          </p>
+
+          <p>
+            Some days are busy, some are unpredictable, but they are always full
+            of opportunities to learn and improve.
+          </p>
+
+          <p>
+            Whether this is your first job or your next move, you'll have a team
+            that's here to help you grow, take responsibility, and make an
+            impact from day one.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Expectations -->
+  <section class="p-4 md:p-8">
+    <div class="bg-accent-deep rounded-4xl">
+      <Container class="bg-accent-deep rounded-3xl">
+        <div class="py-12 md:py-20 text-white sm:rounded-4xl sm:px-10">
+          <h2
+            class="text-center pb-6 text-3xl font-medium tracking-tight sm:text-[2.75rem]"
+          >
+            What you can expect here
+          </h2>
+
+          <div class="mt-10 grid gap-x-12 gap-y-12 sm:grid-cols-2">
+            {
+              expectations.map((item) => (
+                <div class="flex gap-4">
+                  <div class="flex md:h-20 md:w-20 size-11 shrink-0 items-center justify-center rounded-2xl bg-black/15">
+                    <img
+                      src={item.icon}
+                      alt=""
+                      aria-hidden="true"
+                      class="md:h-10 md:w-10 size-7"
+                    />
+                  </div>
+
+                  <div class="flex flex-col gap-2">
+                    <h3 class="text-lg font-medium">{item.title}</h3>
+
+                    <p class="leading-relaxed text-white/70">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </Container>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="py-20 text-center sm:py-24">
+    <Container>
+      <div class="mx-auto max-w-xl">
+        <blockquote
+          class="text-xl font-medium leading-relaxed text-foreground sm:text-2xl"
+        >
+          Working here has taught me more than just customer service. I've
+          learned teamwork, responsibility, and how to stay calm even during our
+          busiest hours.
+        </blockquote>
+
+        <div class="mt-6 flex items-center justify-center gap-3">
+          <img
+            src="/images/testimonial.png"
+            alt="Mayflair staff member"
+            class="h-12 w-12 rounded-full object-cover"
+          />
+
+          <div class="text-left">
+            <p class="font-semibold text-foreground">Paul Ishaili</p>
+
+            <p class="text-sm text-muted">Head of Growth</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Perks -->
+  <section class="py-10 sm:py-16">
+    <Container>
+      <div class="mx-auto max-w-4xl text-center flex flex-col gap-3">
+        <h2
+          class="text-center text-3xl font-medium tracking-tight sm:text-[2.75rem]"
+        >
+          Working here comes
+          <span class="block">with perks</span>
+        </h2>
+
+        <p class="text-muted">
+          The little things we do for you to do your best work every day.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 border-t border-border sm:grid-cols-3">
+        {
+          perks.map((perk, index) => (
+            <div
+              class:list={[
+                "flex min-h-44 flex-col items-center justify-center p-6 text-center gap-2 md:gap-4",
+                index % 3 !== 2 && "sm:border-r sm:border-border",
+                index < 3 && "border-b border-border",
+              ]}
+            >
+              <img
+                src={perk.icon}
+                alt=""
+                aria-hidden="true"
+                class=" object-cover"
+              />
+
+              <h3 class="text-lg font-medium text-foreground">{perk.title}</h3>
+
+              <p class="text-lg leading-relaxed text-muted">
+                {perk.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <!-- Team Gallery -->
+  <section class="py-20 sm:py-24">
+    <Container>
+      <div class="text-center flex flex-col gap-3">
+        <h2
+          class="text-center text-3xl font-medium tracking-tight sm:text-[2.75rem]"
+        >
+          This could be your team
+        </h2>
+
+        <p class="text-muted">
+          Working alongside people who make every shift worth it.
+        </p>
+      </div>
+
+      <div class="mx-auto mt-12 grid max-w-5xl grid-cols-2 gap-2 sm:gap-3">
+        <img
+          src="/images/home/slides/1.webp"
+          alt="Mayflair kitchen team"
+          class="aspect-square w-full rounded-2xl object-cover"
+          loading="lazy"
+        />
+
+        <img
+          src="/images/home/slides/2.webp"
+          alt="Mayflair team together"
+          class="aspect-square w-full rounded-2xl object-cover"
+          loading="lazy"
+        />
+
+        <img
+          src="/images/home/slides/3.webp"
+          alt="Mayflair staff serving customers"
+          class="aspect-square w-full rounded-2xl object-cover"
+          loading="lazy"
+        />
+
+        <img
+          src="/images/home/slides/4.webp"
+          alt="Mayflair team members"
+          class="aspect-square w-full rounded-2xl object-cover"
+          loading="lazy"
+        />
+      </div>
+    </Container>
+  </section>
+
+  <!-- Open Roles -->
+  <section
+    id="open-roles"
+    class="bg-linear-to-b from-white to-[#FFE4E7] py-20 sm:py-24 lg:py-28"
+  >
+    <Container>
+      <div class="mx-auto max-w-4xl">
+        <div class="flex flex-col gap-3 text-center">
+          <h2 class="text-3xl font-medium tracking-tight sm:text-[2.75rem]">
+            Open Roles
+          </h2>
+
+          <p class="text-muted">
+            From your first role to your last one, there’s room to grow with us.
+          </p>
+        </div>
+
+        <div class="mt-12 space-y-3">
+          {
+            roleGroups.map((group) => (
+              <div class="overflow-hidden rounded-2xl border border-border bg-white">
+                <div class="px-5 py-5 sm:px-7">
+                  <h3 class="text-2xl font-medium text-foreground">
+                    {group.title}
+                  </h3>
+
+                  {group.roles.length === 0 ? (
+                    <p class="mt-2 text-muted">
+                      No available jobs at this time
+                    </p>
+                  ) : (
+                    <div class="mt-4 space-y-3">
+                      {group.roles.map((role) => (
+                        <div class="flex items-center justify-between gap-4 border-t border-border pt-3">
+                          <div>
+                            <h4 class="font-medium text-foreground">
+                              {role.title}
+                            </h4>
+
+                            <p class="mt-1 text-sm text-muted">{role.type}</p>
+                          </div>
+
+                          <a
+                            href={`/careers/apply?role=${encodeURIComponent(role.title)}`}
+                            class="inline-flex min-h-8 items-center justify-center rounded-full border border-primary/40 px-4 text-xs font-semibold text-primary transition hover:bg-primary hover:text-white"
+                          >
+                            Apply
+                          </a>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>
