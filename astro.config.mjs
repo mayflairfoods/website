@@ -10,6 +10,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 import vercel from "@astrojs/vercel";
 
+import sitemap from "@astrojs/sitemap";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://mayflairfoods.com",
@@ -23,6 +25,7 @@ export default defineConfig({
       studioBasePath: "/studio", // If you want to access the Studio on a route
     }),
     react(),
+    sitemap(),
   ],
 
   vite: {
