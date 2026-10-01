@@ -66,7 +66,6 @@ const isHomepage = Astro.url.pathname === '/' || Astro.url.pathname === '';
     <slot name="head" />
 
     {isHomepage && (
-      <!-- 🏢 Verified Mayflair Foods Schema - Only prints on the homepage -->
       <script type="application/ld+json">
         {
           "@context": "https://schema.org",
