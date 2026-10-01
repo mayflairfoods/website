@@ -79,6 +79,29 @@ const formattedDate = post.publishedAt
 
 const categories = post.categories ?? [];
 const tags = post.tags ?? [];
+
+// 📊 Generate explicit single article schema for Google
+const blogPostSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": `Read ${post.title} on Mayflair Foods.`,
+  "url": new URL(Astro.url.pathname, Astro.site).toString(),
+  ...(post.publishedAt && { "datePublished": post.publishedAt }),
+  ...(post.mainImage?.url && { "image": [post.mainImage.url] }),
+  "author": {
+    "@type": "Person",
+    "name": post.author?.name || "Mayflair Foods",
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Mayflair Foods",
+    "logo": {
+      "@type": "ImageObject",
+      "url": new URL("/favicon.svg", Astro.site).toString(),
+    },
+  },
+};
 ---
 
 <BaseLayout
@@ -86,6 +109,13 @@ const tags = post.tags ?? [];
   description={`Read ${post.title} on Mayflair Foods.`}
   image={post.mainImage?.url}
 >
+  <!-- 📥 Inject the rich article metadata safely into the layout's head slot -->
+  <script
+    slot="head"
+    type="application/ld+json"
+    set:html={JSON.stringify(blogPostSchema)}
+  />
+
   <article>
     <!-- Header -->
     <header class="py-12 sm:py-16 lg:py-20">

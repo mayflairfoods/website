@@ -21,6 +21,9 @@ const {
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+// 🔍 Check if the current page is the exact homepage root
+const isHomepage = Astro.url.pathname === '/' || Astro.url.pathname === '';
 ---
 
 <!doctype html>
@@ -61,6 +64,37 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <ClientRouter />
 
     <slot name="head" />
+
+    {isHomepage && (
+      <!-- 🏢 Verified Mayflair Foods Schema - Only prints on the homepage -->
+      <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "FastFoodRestaurant",
+          "name": "Mayflair Foods",
+          "image": [
+            "https://mayflairfoods.com"
+          ],
+          "@id": "https://mayflairfoods.com",
+          "url": "https://mayflairfoods.com",
+          "telephone": "+2347045816525",
+          "priceRange": "₦₦",
+          "servesCuisine": "Nigerian, Fast Food, Bakery, Pastries",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Manuwa Busstop, UNEC Campus & Godfrey Okoye Back gate, Thinkers Corner",
+            "addressLocality": "Enugu",
+            "addressRegion": "Enugu State",
+            "addressCountry": "NG"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 6.4281, 
+            "longitude": 7.5052
+          }
+        }
+      </script>
+    )}
 
     <GoogleAnalytics />
   </head>

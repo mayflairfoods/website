@@ -2037,8 +2037,8 @@ packages:
       rollup:
         optional: true
 
-  '@sanity-labs/design-tokens@0.0.2-alpha.4':
-    resolution: {integrity: sha512-+i7GXix4Akt34VDWgSM1Lpq8Hxf8SH8022uNsDRXSNuAqQMjKVGWLItAyc2TyfWVwWZLhsCF3lj5tdW7cecDxQ==}
+  '@sanity-labs/design-tokens@0.0.2-alpha.5':
+    resolution: {integrity: sha512-RwbH9JYJTfXm/h/pgH80CeF8B94EA7+oI4K84iNVtZFNhNAsFsjLP3OFiY3jQsmKwUZIIzJJPyuY6zYQEF7h2A==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
   '@sanity-labs/oclif-plugin-skills-flag@0.2.1':
@@ -2311,8 +2311,8 @@ packages:
       react-dom: ^19.2
       styled-components: ^6.1
 
-  '@sanity/ui@5.0.0-alpha.10':
-    resolution: {integrity: sha512-CSfdb+UXaZksNqSg2YwIDg+dEkhULn94CvnG63ClmEPnloidMJwxndmImm2ipeQ6uzQjei7XOj95XFxgGrA9iw==}
+  '@sanity/ui@5.0.0-alpha.12':
+    resolution: {integrity: sha512-IFeFl9tRSN93GlNdrLVSb0MFMq+TjIpR5kwqWHT3VbJK4mP3vmJqcbJDQ2jHqYN/lUerTZX1GVyHPyMoqSYeTA==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     hasBin: true
     peerDependencies:
@@ -7845,7 +7845,7 @@ snapshots:
       estree-walker: 2.0.2
       picomatch: 4.0.5
 
-  '@sanity-labs/design-tokens@0.0.2-alpha.4': {}
+  '@sanity-labs/design-tokens@0.0.2-alpha.5': {}
 
   '@sanity-labs/oclif-plugin-skills-flag@0.2.1(@oclif/core@4.14.0)':
     dependencies:
@@ -8295,7 +8295,7 @@ snapshots:
       '@inquirer/prompts': 8.6.0(@types/node@26.2.0)
       '@oclif/core': 4.14.0
       '@oclif/plugin-help': 6.2.58
-      '@sanity-labs/design-tokens': 0.0.2-alpha.4
+      '@sanity-labs/design-tokens': 0.0.2-alpha.5
       '@sanity-labs/oclif-plugin-skills-flag': 0.2.1(@oclif/core@4.14.0)
       '@sanity/blueprints': 0.23.6(vite@8.2.2(@types/node@26.2.0)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.12)(yaml@2.9.0))
       '@sanity/blueprints-parser': 0.5.0
@@ -8487,9 +8487,9 @@ snapshots:
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       use-effect-event: 2.0.3(react@19.2.8)
 
-  '@sanity/ui@5.0.0-alpha.10(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@sanity/ui@5.0.0-alpha.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
-      '@sanity-labs/design-tokens': 0.0.2-alpha.4
+      '@sanity-labs/design-tokens': 0.0.2-alpha.5
       '@sanity/icons': 5.2.1(react@19.2.8)
       clsx: 2.1.1
       comment-json: 5.0.0
@@ -11154,7 +11154,7 @@ snapshots:
       speakingurl: 14.0.1
       styled-components: 6.5.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       swr: 2.5.1(react@19.2.8)
-      ui5: '@sanity/ui@5.0.0-alpha.10(react-dom@19.2.8(react@19.2.8))(react@19.2.8)'
+      ui5: '@sanity/ui@5.0.0-alpha.12(react-dom@19.2.8(react@19.2.8))(react@19.2.8)'
       urlpattern-polyfill: 10.1.0
       use-device-pixel-ratio: 1.1.2(react@19.2.8)
       use-effect-event: 2.0.3(react@19.2.8)
