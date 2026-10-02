@@ -1,8 +1,11 @@
 ---
 import { loadQuery } from "@/sanity/lib/load-query";
+import { urlFor } from "@/lib/sanity-image";
+
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Container from "@/components/layout/Container.astro";
 import PostBody from "@/components/blog/PostBody";
+
 import type { Post } from "@/types/post";
 
 export async function getStaticPaths() {
@@ -26,23 +29,40 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
+if (!slug) {
+  return Astro.redirect("/404");
+}
+
+/* --------------------------------------------------
+   Fetch post
+-------------------------------------------------- */
+
 const { data: post } = (await loadQuery({
   query: `*[
     _type == "post" &&
     slug.current == $slug
   ][0]{
+    _id,
     title,
     "slug": slug.current,
+    excerpt,
     publishedAt,
+    _updatedAt,
 
     "author": author->{
+      _id,
       name,
       image
     },
 
-    "mainImage": {
-      "url": mainImage.asset->url,
-      "alt": mainImage.alt
+    mainImage{
+      asset,
+      alt
+    },
+
+    ogImage{
+      asset,
+      alt
     },
 
     "categories": coalesce(
@@ -69,6 +89,13 @@ if (!post) {
   return Astro.redirect("/404");
 }
 
+/* --------------------------------------------------
+   Basic values
+-------------------------------------------------- */
+
+const categories = post.categories ?? [];
+const tags = post.tags ?? [];
+
 const formattedDate = post.publishedAt
   ? new Date(post.publishedAt).toLocaleDateString("en-NG", {
       year: "numeric",
@@ -77,39 +104,82 @@ const formattedDate = post.publishedAt
     })
   : null;
 
-const categories = post.categories ?? [];
-const tags = post.tags ?? [];
+const description =
+  post.excerpt ||
+  `Discover the story behind ${post.title} from Mayflair Foods.`;
 
-// 📊 Generate explicit single article schema for Google
+/* --------------------------------------------------
+   Images
+-------------------------------------------------- */
+
+// Main article image
+const mainImageURL = post.mainImage?.asset
+  ? urlFor(post.mainImage).width(1600).quality(85).url()
+  : null;
+
+// Dedicated social image → main image → global fallback
+const ogImageURL = post.ogImage?.asset
+  ? urlFor(post.ogImage).width(1200).height(630).fit("crop").quality(85).url()
+  : mainImageURL || new URL("/images/og-image.jpg", Astro.site).toString();
+
+/* --------------------------------------------------
+   Article structured data
+-------------------------------------------------- */
+
 const blogPostSchema = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": post.title,
-  "description": `Read ${post.title} on Mayflair Foods.`,
-  "url": new URL(Astro.url.pathname, Astro.site).toString(),
-  ...(post.publishedAt && { "datePublished": post.publishedAt }),
-  ...(post.mainImage?.url && { "image": [post.mainImage.url] }),
-  "author": {
+
+  headline: post.title,
+
+  description,
+
+  url: Astro.url.href,
+
+  ...(post.publishedAt && {
+    datePublished: post.publishedAt,
+  }),
+
+  ...(post._updatedAt && {
+    dateModified: post._updatedAt,
+  }),
+
+  ...(ogImageURL && {
+    image: [ogImageURL],
+  }),
+
+  author: {
     "@type": "Person",
-    "name": post.author?.name || "Mayflair Foods",
+    name: post.author?.name || "Mayflair Foods",
   },
-  "publisher": {
+
+  publisher: {
     "@type": "Organization",
-    "name": "Mayflair Foods",
-    "logo": {
+    name: "Mayflair Foods",
+    logo: {
       "@type": "ImageObject",
-      "url": new URL("/favicon.svg", Astro.site).toString(),
+      url: new URL("/images/mayflair-logo.png", Astro.site).toString(),
     },
+  },
+
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": Astro.url.href,
   },
 };
 ---
 
 <BaseLayout
   title={`${post.title} | Mayflair Foods`}
-  description={`Read ${post.title} on Mayflair Foods.`}
-  image={post.mainImage?.url}
+  description={description}
+  image={ogImageURL}
+  type="article"
+  canonical={Astro.url.href}
+  publishedAt={post.publishedAt}
+  modifiedAt={post._updatedAt}
+  author={post.author?.name}
 >
-  <!-- 📥 Inject the rich article metadata safely into the layout's head slot -->
+  <!-- Article structured data -->
   <script
     slot="head"
     type="application/ld+json"
@@ -117,7 +187,10 @@ const blogPostSchema = {
   />
 
   <article>
-    <!-- Header -->
+    <!-- ==========================================
+         ARTICLE HEADER
+    =========================================== -->
+
     <header class="py-12 sm:py-16 lg:py-20">
       <Container>
         <div class="mx-auto max-w-3xl">
@@ -145,15 +218,24 @@ const blogPostSchema = {
 
           <!-- Title -->
           <h1
-            class="text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-4xl lg:text-5xl"
+            class="text-3xl font-semibold leading-[1.08] tracking-tight text-foreground sm:text-4xl lg:text-5xl"
           >
             {post.title}
           </h1>
 
+          <!-- Excerpt -->
+          {
+            post.excerpt && (
+              <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
+                {post.excerpt}
+              </p>
+            )
+          }
+
           <!-- Meta -->
           {
             (post.author?.name || formattedDate) && (
-              <div class="mt-6 flex flex-wrap items-center gap-3 text-sm text-muted">
+              <div class="mt-7 flex flex-wrap items-center gap-3 text-sm text-muted">
                 {post.author?.name && <span>By {post.author.name}</span>}
 
                 {post.author?.name && formattedDate && (
@@ -183,17 +265,23 @@ const blogPostSchema = {
       </Container>
     </header>
 
-    <!-- Featured Image -->
+    <!-- ==========================================
+         FEATURED IMAGE
+    =========================================== -->
+
     {
-      post.mainImage?.url && (
+      mainImageURL && (
         <section>
           <Container>
             <figure class="mx-auto max-w-5xl overflow-hidden rounded-2xl">
               <img
-                src={post.mainImage.url}
-                alt={post.mainImage.alt || post.title}
+                src={mainImageURL}
+                alt={post.mainImage?.alt || post.title}
+                width="1600"
+                height="900"
                 class="aspect-video w-full object-cover"
                 loading="eager"
+                fetchpriority="high"
               />
             </figure>
           </Container>
@@ -201,10 +289,13 @@ const blogPostSchema = {
       )
     }
 
-    <!-- Article -->
+    <!-- ==========================================
+         ARTICLE BODY
+    =========================================== -->
+
     {
       post.body && (
-        <section class="py-10 sm:py-14 lg:py-16">
+        <section class="py-12 sm:py-16 lg:py-20">
           <Container>
             <div class="mx-auto max-w-3xl">
               <PostBody value={post.body} />
@@ -214,7 +305,10 @@ const blogPostSchema = {
       )
     }
 
-    <!-- Back to Blog -->
+    <!-- ==========================================
+         BACK TO BLOG
+    =========================================== -->
+
     <section class="border-t border-border-light">
       <Container class="py-8">
         <a

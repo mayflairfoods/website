@@ -1,34 +1,51 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Container from "@/components/layout/Container.astro";
-// 🛠️ FIX: Corrected component import typo (removed double 'd')
 import BlogGrid from "@/components/blog/BlogGrid";
 
 import { loadQuery } from "@/sanity/lib/load-query";
+import { urlFor } from "@/lib/sanity-image";
 
 const { data } = await loadQuery({
   query: `
-    *[_type == "post" && defined(slug.current)]
-      | order(publishedAt desc) {
-        title,
-        "slug": slug.current,
-        "image": mainImage.asset->url,
-        publishedAt,
+    *[
+      _type == "post" &&
+      defined(slug.current)
+    ]
+    | order(publishedAt desc) {
+      title,
+      "slug": slug.current,
+      mainImage{
+        asset,
+        alt
+      },
+      publishedAt,
 
-        "categories": categories[]->{
+      "categories": coalesce(
+        categories[]->{
           title,
           "slug": slug.current
         },
+        []
+      ),
 
-        tags
-      }
+      "tags": coalesce(tags, [])
+    }
   `,
 });
 
 type SanityPost = {
   title: string;
   slug: string;
-  image?: string;
+
+  mainImage?: {
+    asset?: {
+      _ref?: string;
+      _type?: string;
+    };
+    alt?: string;
+  };
+
   publishedAt?: string;
 
   categories?: {
@@ -42,7 +59,13 @@ type SanityPost = {
 const posts = (data as SanityPost[]).map((post) => ({
   title: post.title,
   slug: post.slug,
-  image: post.image,
+
+  image: post.mainImage?.asset
+    ? urlFor(post.mainImage).width(1600).quality(85).url()
+    : undefined,
+
+  imageAlt: post.mainImage?.alt || post.title,
+
   publishedAt: post.publishedAt,
 
   categories: post.categories ?? [],
@@ -54,7 +77,6 @@ const posts = (data as SanityPost[]).map((post) => ({
 
 /*
  * Collect all categories used across posts.
- * Useful for filtering the blog.
  */
 const categories = [
   ...new Set(
@@ -64,25 +86,31 @@ const categories = [
   ),
 ];
 
+/*
+ * Collect all tags used across posts.
+ */
 const tags = [...new Set(posts.flatMap((post) => post.tags).filter(Boolean))];
 
 const featuredPost = posts[0];
-const remainingPosts = posts;
+
+/*
+ * Exclude the featured post from the grid
+ * so it isn't displayed twice.
+ */
+const remainingPosts = posts.slice(1);
 ---
 
 <BaseLayout
   title="Blog | Mayflair Foods"
-  description="What's happening in Mayflair — stories, food, community, events and more."
+  description="What's happening at Mayflair — stories, food, community, events and more."
 >
-  <!-- 🛠️ FIX: Removed redundant extra <main> wrapper to match BaseLayout architecture -->
-
   <!-- Blog Header -->
   <section class="py-12 md:py-16">
     <Container>
       <div class="max-w-2xl">
         <h1 class="text-3xl font-semibold tracking-tight md:text-4xl">Blog</h1>
 
-        <p class="mt-2 text-sm text-muted">What's happening in Mayflair</p>
+        <p class="mt-2 text-sm text-muted">What's happening at Mayflair</p>
       </div>
     </Container>
   </section>
@@ -97,7 +125,11 @@ const remainingPosts = posts;
               {featuredPost.image && (
                 <img
                   src={featuredPost.image}
-                  alt={featuredPost.title}
+                  alt={featuredPost.imageAlt}
+                  width="1600"
+                  height="700"
+                  loading="eager"
+                  fetchpriority="high"
                   class="aspect-[16/7] w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               )}

@@ -10,6 +10,11 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  type?: "website" | "article";
+  canonical?: string;
+  publishedAt?: string;
+  modifiedAt?: string;
+  author?: string;
   noIndex?: boolean;
 }
 
@@ -17,26 +22,40 @@ const {
   title = "Mayflair Foods | Good Food, Always.",
   description = "Good food, warm hospitality, and memorable experiences from Mayflair Foods.",
   image = "/images/og-image.jpg",
+  type = "website",
+  canonical,
+  publishedAt,
+  modifiedAt,
+  author,
   noIndex = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+/**
+ * Build absolute URLs for SEO/social metadata.
+ */
+const siteURL = Astro.site ?? new URL("https://mayflairfoods.com");
 
-// 🔍 Check if the current page is the exact homepage root
-const isHomepage = Astro.url.pathname === '/' || Astro.url.pathname === '';
+const canonicalURL = canonical
+  ? new URL(canonical, siteURL).toString()
+  : new URL(Astro.url.pathname, siteURL).toString();
+
+const imageURL = new URL(image, siteURL).toString();
+
+const isHomepage = Astro.url.pathname === "/" || Astro.url.pathname === "";
+
+const isArticle = type === "article";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="theme-color" content="#A51C32" />
 
+    <!-- Primary SEO -->
     <title>{title}</title>
     <meta name="description" content={description} />
 
@@ -45,55 +64,80 @@ const isHomepage = Astro.url.pathname === '/' || Astro.url.pathname === '';
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={isArticle ? "article" : "website"} />
+
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={image} />
     <meta property="og:site_name" content="Mayflair Foods" />
 
-    <!-- Twitter -->
+    <meta property="og:image" content={imageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    {
+      isArticle && publishedAt && (
+        <meta property="article:published_time" content={publishedAt} />
+      )
+    }
+
+    {
+      isArticle && modifiedAt && (
+        <meta property="article:modified_time" content={modifiedAt} />
+      )
+    }
+
+    {isArticle && author && <meta property="article:author" content={author} />}
+
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
+
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image" content={imageURL} />
 
     <link rel="icon" href="/favicon.svg" />
 
     <!-- Astro View Transitions -->
     <ClientRouter />
 
+    <!-- Page-specific head content -->
     <slot name="head" />
 
-    {isHomepage && (
-      <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "FastFoodRestaurant",
-          "name": "Mayflair Foods",
-          "image": [
-            "https://mayflairfoods.com"
-          ],
-          "@id": "https://mayflairfoods.com",
-          "url": "https://mayflairfoods.com",
-          "telephone": "+2347045816525",
-          "priceRange": "₦₦",
-          "servesCuisine": "Nigerian, Fast Food, Bakery, Pastries",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Manuwa Busstop, UNEC Campus & Godfrey Okoye Back gate, Thinkers Corner",
-            "addressLocality": "Enugu",
-            "addressRegion": "Enugu State",
-            "addressCountry": "NG"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": 6.4281, 
-            "longitude": 7.5052
-          }
-        }
-      </script>
-    )}
+    <!-- Homepage structured data -->
+    {
+      isHomepage && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FastFoodRestaurant",
+            name: "Mayflair Foods",
+            image: [
+              new URL("/images/mayflair-storefront.jpg", siteURL).toString(),
+            ],
+            "@id": siteURL.toString(),
+            url: siteURL.toString(),
+            telephone: "+2347045816525",
+            priceRange: "₦₦",
+            servesCuisine: ["Nigerian", "Fast Food", "Bakery", "Pastries"],
+            address: {
+              "@type": "PostalAddress",
+              streetAddress:
+                "Manuwa Busstop, UNEC Campus & Godfrey Okoye Back Gate, Thinkers Corner",
+              addressLocality: "Enugu",
+              addressRegion: "Enugu State",
+              addressCountry: "NG",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 6.4281,
+              longitude: 7.5052,
+            },
+          })}
+        />
+      )
+    }
 
     <GoogleAnalytics />
   </head>
