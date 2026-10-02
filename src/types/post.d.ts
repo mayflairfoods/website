@@ -1,31 +1,40 @@
-export interface PostCategory {
-  _id: string;
-  title: string;
-  slug?: string;
-}
-
-export interface PostAuthor {
-  name?: string;
-  image?: unknown;
-}
-
 export interface Post {
+  _id?: string;
   title: string;
-  slug?: {
-    current: string;
-  };
+  slug: string;
+  excerpt?: string;
   publishedAt?: string;
+  _updatedAt?: string;
 
-  author?: PostAuthor;
+  author?: {
+    _id?: string;
+    name?: string;
+    image?: unknown;
+  };
 
   mainImage?: {
-    url?: string;
+    asset?: {
+      _ref?: string;
+      _type?: string;
+    };
     alt?: string;
   };
 
-  categories?: PostCategory[];
+  ogImage?: {
+    asset?: {
+      _ref?: string;
+      _type?: string;
+    };
+    alt?: string;
+  };
+
+  categories?: Array<{
+    _id: string;
+    title: string;
+    slug?: string;
+  }>;
 
   tags?: string[];
 
-  body?: any;
+  body?: unknown;
 }
