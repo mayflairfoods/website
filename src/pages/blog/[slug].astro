@@ -5,7 +5,6 @@ import { urlFor } from "@/lib/sanity-image";
 import BlogLayout from "@/layouts/BlogLayout.astro";
 import Container from "@/components/layout/Container.astro";
 import PostBody from "@/components/blog/PostBody";
-import ArticleReactions from "@/components/blog/ArticleReactions";
 
 import type { Post } from "@/types/post";
 import BaseLayout from "@/layouts/BaseLayout.astro";
@@ -117,7 +116,7 @@ const ogImageURL = post.ogImage?.asset
   <article class="relative min-h-screen bg-white py-8 sm:py-12">
     <Container>
       <!-- Back Navigation -->
-      <div class="mb-8 max-w-[728px] mx-auto">
+      <div class="mb-8 max-w-182 mx-auto">
         <a
           href="/blog"
           class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-500 transition-colors hover:text-black"
@@ -258,15 +257,6 @@ const ogImageURL = post.ogImage?.asset
           <!-- Article Body -->
           <div class="mt-8 max-w-none text-neutral-800 leading-[1.8]">
             <PostBody value={post.body} />
-          </div>
-
-          <!-- SANITY-CONNECTED REACTION BAR -->
-          <div class="mt-16 pt-8 border-t border-neutral-100">
-            <ArticleReactions
-              client:visible
-              postId={post._id!}
-              initialClaps={post.claps || 0}
-            />
           </div>
         </main>
       </div>
