@@ -1,0 +1,34 @@
+---
+interface Props {
+  slug: string;
+  initialViews?: number;
+}
+
+const { slug, initialViews = 0 } = Astro.props;
+---
+
+<span id="view-count-display" class="font-medium text-neutral-900">
+  {initialViews.toLocaleString()} views
+</span>
+
+<script is:inline data-slug={slug}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const slug = document.currentScript?.getAttribute("data-slug");
+    if (!slug) return;
+
+    // Trigger view count increment (deduplicated per session)
+    const storageKey = `viewed_${slug}`;
+    if (!sessionStorage.getItem(storageKey)) {
+      fetch(`/api/views/${slug}`, { method: "POST" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.views !== undefined) {
+            const el = document.getElementById("view-count-display");
+            if (el) el.textContent = `${data.views.toLocaleString()} views`;
+            sessionStorage.setItem(storageKey, "true");
+          }
+        })
+        .catch((err) => console.error("Error logging view:", err));
+    }
+  });
+</script>
