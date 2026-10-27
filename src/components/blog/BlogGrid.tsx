@@ -38,7 +38,7 @@ export default function BlogGrid({ posts, categories, tags }: BlogGridProps) {
               key={category}
               type="button"
               onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-2 text-sm font-medium font-display transition-colors ${
+              className={`rounded-full px-4 py-2 !text-xs md:text-sm font-medium font-display transition-colors ${
                 active
                   ? "bg-primary text-white"
                   : "border border-border bg-white text-[#424040]  hover:border-primary hover:text-primary"

@@ -8,6 +8,7 @@ import PostBody from "@/components/blog/PostBody";
 
 import type { Post } from "@/types/post";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import WebsiteLayout from "@/layouts/WebsiteLayout.astro";
 
 export async function getStaticPaths() {
   const { data } = await loadQuery({
@@ -105,7 +106,7 @@ const ogImageURL = post.ogImage?.asset
   });
 </script>
 
-<BaseLayout
+<WebsiteLayout
   title={`${post.title} | The MayFlair Towncrier`}
   description={description}
   image={ogImageURL ?? undefined}
@@ -262,4 +263,4 @@ const ogImageURL = post.ogImage?.asset
       </div>
     </Container>
   </article>
-</BaseLayout>
+</WebsiteLayout>

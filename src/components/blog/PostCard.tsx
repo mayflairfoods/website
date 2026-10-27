@@ -40,12 +40,14 @@ export default function PostCard({
         {/* Content */}
         <div className="mt-4 space-y-1">
           {tag && (
-            <span className={`text-sm font-medium block text-primary`}>
+            <span
+              className={`text-xs md:text-sm font-medium block text-primary`}
+            >
               {tag}
             </span>
           )}
 
-          <h3 className="line-clamp-2 text-xl font-medium text-foreground leading-12 transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 text-xl md:text-2xl font-medium text-foreground leading-12 transition-colors group-hover:text-primary">
             {title}
           </h3>
 
@@ -58,7 +60,7 @@ export default function PostCard({
           {publishedAt && (
             <time
               dateTime={publishedAt}
-              className="block text-xs mt-1 text-muted-light"
+              className="block text-xs md:text-sm mt-1 text-muted-light"
             >
               {new Date(publishedAt).toLocaleDateString("en-US", {
                 month: "long",

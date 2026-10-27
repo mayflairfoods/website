@@ -1,75 +1,79 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import StatComponent from "@/components/shared/StatComponent.astro";
 
 import DeliverySection from "@/components/home/DeliverySection.astro";
 import PeekIntoMayflair from "@/components/home/PeekIntoMayflair.astro";
+import WebsiteLayout from "@/layouts/WebsiteLayout.astro";
 ---
 
-<BaseLayout
+<WebsiteLayout
   title="Mayflair Foods | Good Food, Always."
   description="Good food, warm hospitality, and memorable experiences."
 >
-  <section class="relative py-20 sm:py-24 isolate">
+  <section class="relative isolate -top-21 h-[calc(100vh)]">
     <!-- Actual hero background -->
     <div
       class="absolute top-0 -z-10 w-full h-full bg-[url(/images/home/hero-bg.webp)] bg-cover bg-center bg-no-repeat"
     >
     </div>
 
-    <Container>
-      <div class="mx-auto max-w-4xl text-center">
-        <h1
-          class="text-[2.75rem] font-medium tracking-tight text-foreground sm:text-6xl lg:text-7xl"
-        >
-          Hungry? Say Less.
-        </h1>
-
-        <p
-          class="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted sm:text-lg"
-        >
-          Whether it's a quick lunch, a study break, a team hangout, or a
-          well-deserved treat, there's always something good waiting at
-          Mayflair.
-        </p>
-
-        <div
-          class="mt-auto flex flex-wrap justify-center items-center gap-2 md:gap-4 pt-10"
-        >
-          <a
-            href="https://wa.link/cpo8so"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex min-h-12 items-center justify-center text-[#584013] rounded-full bg-accent px-4 font-display text-base font-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-dark"
-          >
-            Order Now
-          </a>
-
-          <div class="relative">
-            <span
-              class="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary -z-10 px-3 py-1 text-[10px] font-semibold text-white"
+    <Container class="h-full">
+      <div class="mx-auto max-w-4xl pt-40 h-full text-center">
+        <div class="flex flex-col h-full max-h-full overflow-hidden space-y-6">
+          <div class="h-max flex flex-col gap-3">
+            <h1
+              class="text-[2.75rem] font-medium tracking-tight text-foreground sm:text-6xl lg:text-7xl"
             >
-              COMING SOON
-            </span>
+              Hungry? Say Less.
+            </h1>
 
-            <button
-              type="button"
-              disabled
-              class="inline-flex min-h-12 items-center justify-center rounded-full border border-primary/70 px-4 font-display text-base font-medium text-primary bg-white"
+            <p
+              class="mx-auto max-w-3xl text-base leading-relaxed text-muted sm:text-lg"
             >
-              Track your order
-            </button>
+              Whether it's a quick lunch, a study break, a team hangout, or a
+              well-deserved treat, there's always something good waiting at
+              Mayflair.
+            </p>
           </div>
-        </div>
 
-        <div class="relative mt-8 w-full mx-auto max-w-2xl">
-          <img
-            src="/images/home-hero.webp"
-            alt="Mayflair Foods meals"
-            class="mx-auto w-full object-contain"
-            loading="eager"
-          />
+          <div
+            class="mt-auto flex flex-wrap justify-center items-center gap-2 md:gap-4"
+          >
+            <a
+              href="https://wa.link/cpo8so"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex min-h-12 items-center justify-center text-[#584013] rounded-full bg-accent px-4 font-display text-base font-medium transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent-dark"
+            >
+              Order Now
+            </a>
+
+            <div class="relative">
+              <span
+                class="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary -z-10 px-3 py-1 text-[10px] font-semibold text-white"
+              >
+                COMING SOON
+              </span>
+
+              <button
+                type="button"
+                disabled
+                class="inline-flex min-h-12 items-center justify-center rounded-full border border-primary/70 px-4 font-display text-base font-medium text-primary bg-white"
+              >
+                Track your order
+              </button>
+            </div>
+
+            <div class="relative mt-4 w-full mx-auto max-w-2xl">
+              <img
+                src="/images/home-hero.webp"
+                alt="Mayflair Foods meals"
+                class="mx-auto w-full object-contain"
+                loading="eager"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </Container>
@@ -106,4 +110,4 @@ import PeekIntoMayflair from "@/components/home/PeekIntoMayflair.astro";
   <DeliverySection />
 
   <PeekIntoMayflair />
-</BaseLayout>
+</WebsiteLayout>
