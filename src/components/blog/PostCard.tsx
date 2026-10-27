@@ -8,12 +8,12 @@ interface PostCardProps {
   publishedAt?: string;
 }
 
-const tagStyles = {
-  red: "bg-primary-soft text-primary",
-  yellow: "bg-accent-soft text-accent-dark",
-  green: "bg-success-soft text-success",
-  purple: "bg-info-soft text-info",
-};
+// const tagStyles = {
+//   red: "bg-primary-soft text-primary",
+//   yellow: "bg-accent-soft text-accent-dark",
+//   green: "bg-success-soft text-success",
+//   purple: "bg-info-soft text-info",
+// };
 
 export default function PostCard({
   title,
@@ -28,28 +28,24 @@ export default function PostCard({
     <article className="group">
       <a href={`/blog/${slug}`} className="block">
         {/* Image */}
-        <div className="aspect-4/3 overflow-hidden rounded-xl bg-surface-muted">
+        <div className="aspect-square overflow-hidden rounded-3xl bg-surface-muted">
           <img
             src={image}
             alt={title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            className="h-full w-full aspect-square object-cover transition-transform duration-300 group-hover:scale-[1.03]"
           />
         </div>
 
         {/* Content */}
-        <div className="mt-3 space-y-2">
+        <div className="mt-4 space-y-1">
           {tag && (
-            <span
-              className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
-                tagStyles[tagColor]
-              }`}
-            >
+            <span className={`text-sm font-medium block text-primary`}>
               {tag}
             </span>
           )}
 
-          <h3 className="line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 text-xl font-medium text-foreground leading-12 transition-colors group-hover:text-primary">
             {title}
           </h3>
 
@@ -62,7 +58,7 @@ export default function PostCard({
           {publishedAt && (
             <time
               dateTime={publishedAt}
-              className="block text-xs text-muted-light"
+              className="block text-xs mt-1 text-muted-light"
             >
               {new Date(publishedAt).toLocaleDateString("en-US", {
                 month: "long",
