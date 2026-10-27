@@ -11,7 +11,7 @@ const navItems: NavItem[] = [
 ];
 ---
 
-<header class="sticky top-0 z-50 w-full px-3 pt-3 sm:px-5 sm:pt-5">
+<header class="site-header sticky top-0 z-50 w-full px-3 pt-3 sm:px-5 sm:pt-5">
   <div
     class="mx-auto flex h-14 items-center justify-between rounded-full bg-white px-4 shadow-[0_6px_24px_rgba(181,18,43,0.08)] sm:h-16"
   >
@@ -68,3 +68,15 @@ const navItems: NavItem[] = [
     </div>
   </div>
 </header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-block: 1rem 0.9rem;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+</style>

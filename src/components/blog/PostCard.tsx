@@ -47,7 +47,7 @@ export default function PostCard({
             </span>
           )}
 
-          <h3 className="line-clamp-2 text-xl md:text-2xl font-medium text-foreground leading-12 transition-colors group-hover:text-primary">
+          <h3 className="line-clamp-2 font-baloo text-xl md:text-2xl font-medium text-foreground leading-12 transition-colors group-hover:text-primary">
             {title}
           </h3>
 

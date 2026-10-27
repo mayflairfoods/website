@@ -1,0 +1,218 @@
+---
+import { categories } from "../../data/stories";
+import { site } from "../../data/site";
+
+interface Props {
+  activeCategory?: string;
+}
+const { activeCategory } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container">
+    <div class="bar">
+      <a class="brand" href="/inside" aria-label="Inside MayFlair home">
+        <span class="brand-mark">MayFlair<small>Foods</small></span>
+        <span class="badge">Inside</span>
+      </a>
+
+      <form class="search" role="search" action="/inside" method="get">
+        <label class="visually-hidden" for="inside-search">Search stories</label
+        >
+        <svg
+          class="search-icon"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input
+          id="inside-search"
+          name="q"
+          type="search"
+          placeholder="Search stories"
+          autocomplete="off"
+          data-search
+        />
+      </form>
+
+      <a class="order" href={site.orderUrl}>Order food</a>
+      <a class="btn btn-primary subscribe" href={site.whatsappChannel}
+        >Subscribe</a
+      >
+    </div>
+
+    <nav class="pills" aria-label="Story categories">
+      <a
+        class:list={["pill", { "is-active": activeCategory === "all" }]}
+        href="/inside"
+        data-pill="all"
+        aria-current={activeCategory === "all" ? "true" : undefined}>All</a
+      >
+      {
+        categories.map((c) => (
+          <a
+            class:list={["pill", { "is-active": activeCategory === c.id }]}
+            href={`/inside?cat=${c.id}`}
+            data-pill={c.id}
+            aria-current={activeCategory === c.id ? "true" : undefined}
+          >
+            {c.label}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding-block: 1rem 0.9rem;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.6rem 0.5rem 1.25rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-right: auto;
+    text-decoration: none;
+  }
+  .brand-mark {
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 0.9;
+    color: var(--maroon);
+  }
+  .brand-mark small {
+    font-size: 0.8rem;
+    color: var(--gold);
+    -webkit-text-stroke: 0.5px var(--maroon-deep);
+  }
+  .badge {
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .search {
+    position: relative;
+    flex: 0 1 280px;
+  }
+  .search input {
+    width: 100%;
+    height: 44px;
+    padding: 0 1rem 0 2.6rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--surface);
+    font: inherit;
+    font-size: 0.9rem;
+    color: var(--ink);
+  }
+  .search input::placeholder {
+    color: var(--muted);
+  }
+  .search-icon {
+    position: absolute;
+    left: 0.95rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  .order {
+    padding-inline: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--maroon);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .order:hover {
+    text-decoration: underline;
+  }
+
+  .subscribe {
+    min-height: 44px;
+  }
+
+  .pills {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.9rem;
+    padding-bottom: 0.15rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .pills::-webkit-scrollbar {
+    display: none;
+  }
+  .pill {
+    flex: none;
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .pill:hover {
+    background: var(--maroon-tint);
+  }
+  .pill.is-active {
+    background: var(--maroon);
+    border-color: var(--maroon);
+    color: #fff;
+  }
+
+  @media (max-width: 640px) {
+    .bar {
+      padding-left: 1rem;
+    }
+    .search,
+    .order {
+      display: none;
+    }
+  }
+</style>
