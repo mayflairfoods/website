@@ -4,11 +4,9 @@ import MobileMenu from "@/components/ui/MobileMenu";
 import type { NavItem } from "@/types/navigation";
 
 const navItems: NavItem[] = [
+  { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-  { label: "Products", href: "/products" },
-  { label: "Services", href: "/services" },
-  { label: "Partnership", href: "/partnership" },
+  { label: "Contact Us", href: "/contact" },
   { label: "Blog", href: "/blog" },
 ];
 ---
@@ -43,12 +41,12 @@ const navItems: NavItem[] = [
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden items-center gap-7 md:flex" aria-label="Main navigation">
+    <nav class="hidden items-center gap-6 md:flex" aria-label="Main navigation">
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="text-sm font-normal text-foreground transition-colors hover:text-primary"
+            class="font-medium text-foreground transition-colors hover:text-primary px-1"
           >
             {item.label}
           </a>
@@ -58,10 +56,10 @@ const navItems: NavItem[] = [
 
     <!-- Desktop CTA -->
     <a
-      href="/contact"
-      class="hidden min-h-10 shrink-0 items-center justify-center rounded-full bg-accent px-6 text-sm font-semibold text-foreground font-display transition-colors hover:bg-accent-dark md:inline-flex"
+      href="/"
+      class="hidden h-max shrink-0 items-center justify-center rounded-full px-6 py-3 font-semibold text-[#513300] font-display bg-[#F1AC34] transition-colors hover:bg-accent-dark md:inline-flex"
     >
-      Contact Us
+      Order Now
     </a>
 
     <!-- Mobile Menu -->

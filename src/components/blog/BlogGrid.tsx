@@ -29,7 +29,7 @@ export default function BlogGrid({ posts, categories, tags }: BlogGridProps) {
   return (
     <div>
       {/* Categories */}
-      <div className="mb-8 flex flex-wrap gap-2">
+      <div className="mb-12 -mt-2 flex flex-wrap gap-2">
         {["All", ...categories].map((category) => {
           const active = activeCategory === category;
 
@@ -38,10 +38,10 @@ export default function BlogGrid({ posts, categories, tags }: BlogGridProps) {
               key={category}
               type="button"
               onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-3 py-1.5 text-xs font-medium transition-colors ${
+              className={`rounded-full px-4 py-2 text-sm font-medium font-display transition-colors ${
                 active
                   ? "bg-primary text-white"
-                  : "border border-border bg-white text-foreground hover:border-primary hover:text-primary"
+                  : "border border-border bg-white text-[#424040]  hover:border-primary hover:text-primary"
               }`}
               aria-pressed={active}
             >
@@ -53,7 +53,7 @@ export default function BlogGrid({ posts, categories, tags }: BlogGridProps) {
 
       {/* Posts */}
       {filteredPosts.length > 0 ? (
-        <div className="grid gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-x-4 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
           {filteredPosts.map((post) => (
             <PostCard key={post.slug} {...post} image={post.image ?? ""} />
           ))}
