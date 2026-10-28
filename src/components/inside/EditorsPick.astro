@@ -1,0 +1,63 @@
+---
+import Container from "@/components/layout/Container.astro";
+import Button from "@/components/inside/Button.astro";
+import Eyebrow from "@/components/inside/Eyebrow.astro";
+import SectionHeading from "@/components/inside/SectionHeading.astro";
+import { categoryLabel, type Story } from "@/data/stories";
+import { formatStoryDate } from "@/utils/inside-date";
+
+interface Props {
+  story: Story;
+}
+
+const { story } = Astro.props;
+const href = `/inside/${story.slug}`;
+---
+
+<section aria-labelledby="pick-title" class="mt-13 sm:mt-18">
+  <Container>
+    <SectionHeading id="pick-title" title="Editor's pick" />
+    <article
+      class="grid items-center gap-[clamp(1.25rem,4vw,3rem)] rounded-[2rem] border border-border p-4 min-[961px]:grid-cols-[1.15fr_1fr]"
+    >
+      <a
+        href={href}
+        tabindex="-1"
+        aria-hidden="true"
+        class="block aspect-[10/7] overflow-hidden rounded-3xl bg-border-light"
+      >
+        {
+          story.cover ? (
+            <img
+              src={story.cover}
+              alt=""
+              width="800"
+              height="560"
+              class="size-full object-cover"
+            />
+          ) : (
+            <span class="block size-full bg-linear-to-br from-border-light to-border" />
+          )
+        }
+      </a>
+
+      <div class="grid justify-items-start gap-3 p-2 min-[961px]:pr-4 min-[961px]:pl-0">
+        <Eyebrow>{categoryLabel(story.category)} · {story.campus}</Eyebrow>
+        <h3
+          class="font-inside text-[length:clamp(1.7rem,3.4vw,2.6rem)] leading-[1.08] font-extrabold text-foreground"
+        >
+          <a href={href} class="hover:text-primary">{story.title}</a>
+        </h3>
+        <p class="text-muted">{story.excerpt}</p>
+        <p class="mb-2 text-sm text-muted">
+          By {story.author} ·
+          <time datetime={story.publishedAt}>
+            {formatStoryDate(story.publishedAt)}
+          </time>
+          · {story.readMinutes} min read
+        </p>
+        <Button href={href}>Read story</Button>
+      </div>
+    </article>
+  </Container>
+</section>

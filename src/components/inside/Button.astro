@@ -1,0 +1,34 @@
+---
+interface Props {
+  href: string;
+  variant?: "primary" | "gold" | "outline-light";
+  size?: "md" | "sm";
+  class?: string;
+}
+
+const { href, variant = "primary", size = "md", class: className } = Astro.props;
+
+const variants = {
+  primary:
+    "border-primary bg-primary text-white hover:border-primary-dark hover:bg-primary-dark",
+  gold: "border-[#F1AC34] bg-[#F1AC34] text-[#513300] hover:border-accent-dark hover:bg-accent-dark",
+  "outline-light": "border-white/70 text-white hover:bg-white/10",
+};
+
+const sizes = {
+  md: "min-h-11 px-6",
+  sm: "min-h-10 px-[1.1rem]",
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    "font-inside inline-flex items-center justify-center gap-2 rounded-full border-2 py-2 text-base leading-none font-bold transition hover:-translate-y-px motion-reduce:transition-none motion-reduce:hover:translate-y-0",
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
+>
+  <slot />
+</a>

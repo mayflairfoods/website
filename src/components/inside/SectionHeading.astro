@@ -1,0 +1,24 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  class?: string;
+}
+
+const { id, title, class: className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "mb-6 flex items-baseline justify-between gap-4",
+    className,
+  ]}
+>
+  <h2
+    id={id}
+    class="font-inside text-[length:clamp(1.6rem,3vw,2.2rem)] leading-[1.15] font-extrabold text-foreground"
+  >
+    {title}
+  </h2>
+  <slot />
+</div>

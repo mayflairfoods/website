@@ -108,7 +108,7 @@ const remainingPosts = posts.slice(1);
   <!-- Featured Post -->
   {
     featuredPost && (
-      <section class="py-12">
+      <section class="pt-6 md:pt-12">
         <Container>
           <a href={`/blog/${featuredPost.slug}`} class="group block">
             <div class="overflow-hidden rounded-2xl bg-surface-muted">
@@ -120,7 +120,7 @@ const remainingPosts = posts.slice(1);
                   height="700"
                   loading="eager"
                   fetchpriority="high"
-                  class="aspect-16/7 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  class="md:aspect-video aspect-5/4 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                 />
               )}
             </div>

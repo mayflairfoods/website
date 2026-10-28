@@ -7,12 +7,13 @@ const navItems: NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Contact Us", href: "/contact" },
   { label: "Blog", href: "/blog" },
+  { label: "Inside MayFlair", href: "/inside", badge: "New" },
 ];
 ---
 
-<header class="site-header sticky top-0 z-50 w-full px-3 pt-3 sm:px-5 sm:pt-5">
+<header class="site-header">
   <div
-    class="mx-auto flex h-14 items-center justify-between rounded-full bg-white px-4 shadow-[0_6px_24px_rgba(181,18,43,0.08)] sm:h-16"
+    class="mx-auto flex h-14 items-center justify-between rounded-full bg-white px-4 shadow-[0_4px_18px_rgba(181,18,43,0.08)] sm:h-16"
   >
     <!-- Logo -->
     <a href="/" aria-label="Mayflair Foods home" class="shrink-0">
@@ -40,14 +41,22 @@ const navItems: NavItem[] = [
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden items-center gap-6 md:flex" aria-label="Main navigation">
+    <nav
+      class="hidden items-center gap-4 md:flex lg:gap-6"
+      aria-label="Main navigation"
+    >
       {
         navItems.map((item) => (
           <a
             href={item.href}
-            class="font-medium text-foreground transition-colors hover:text-primary px-1"
+            class="inline-flex items-center gap-1.5 px-1 font-medium text-foreground transition-colors hover:text-primary"
           >
             {item.label}
+            {item.badge && (
+              <span class="rounded-full bg-primary px-1.5 py-0.5 text-[0.625rem] leading-none font-bold tracking-wide text-white uppercase">
+                {item.badge}
+              </span>
+            )}
           </a>
         ))
       }
@@ -73,9 +82,7 @@ const navItems: NavItem[] = [
     position: sticky;
     top: 0;
     z-index: 50;
-    padding-block: 1rem 0.9rem;
+    padding-top: 1rem;
     background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
   }
 </style>
