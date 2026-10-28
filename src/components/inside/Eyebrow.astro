@@ -1,0 +1,23 @@
+---
+interface Props {
+  tone?: "primary" | "gold";
+  class?: string;
+}
+
+const { tone = "primary", class: className } = Astro.props;
+
+const tones = {
+  primary: "text-primary",
+  gold: "text-[#F1AC34]",
+};
+---
+
+<p
+  class:list={[
+    "font-inside text-[0.8rem] leading-normal font-extrabold tracking-[0.06em] uppercase",
+    tones[tone],
+    className,
+  ]}
+>
+  <slot />
+</p>

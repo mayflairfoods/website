@@ -29,7 +29,7 @@ export default function BlogGrid({ posts, categories, tags }: BlogGridProps) {
   return (
     <div>
       {/* Categories */}
-      <div className="mb-12 -mt-2 flex flex-wrap gap-2">
+      <div className="my-6 md:my-12 flex flex-wrap gap-2">
         {["All", ...categories].map((category) => {
           const active = activeCategory === category;
 

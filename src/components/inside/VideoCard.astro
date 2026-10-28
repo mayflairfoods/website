@@ -1,0 +1,47 @@
+---
+import type { Video } from "@/data/stories";
+
+interface Props {
+  video: Video;
+}
+
+const { video } = Astro.props;
+const isShort = video.kind === "short";
+---
+
+<!-- `relative` keeps the sr-only label inside the scroller so it can't widen the page. -->
+<li
+  class:list={[
+    "relative flex-none snap-start",
+    isShort ? "w-[min(46vw,190px)]" : "w-[min(78vw,340px)]",
+  ]}
+>
+  <a href={video.href} class="group grid gap-2.5">
+    <span
+      class:list={[
+        "relative block overflow-hidden rounded-[1.25rem] bg-linear-to-br from-primary to-primary-dark",
+        isShort ? "aspect-[9/16]" : "aspect-video",
+      ]}
+    >
+      <span
+        aria-hidden="true"
+        class="absolute inset-0 m-auto grid size-14 place-items-center rounded-full bg-white/95 text-primary transition-transform group-hover:scale-110 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+      >
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+      </span>
+      <span
+        class="absolute right-2.5 bottom-2.5 rounded-full bg-black/65 px-2 py-0.5 text-xs text-white"
+      >
+        {video.meta}
+      </span>
+    </span>
+    <span
+      class="font-inside text-[1.05rem] leading-[1.2] font-bold text-foreground"
+    >
+      {video.title}
+    </span>
+    <span class="sr-only">{isShort ? "Short video" : "Video"}</span>
+  </a>
+</li>

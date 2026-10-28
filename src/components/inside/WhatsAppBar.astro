@@ -1,0 +1,40 @@
+---
+import Button from "@/components/inside/Button.astro";
+import { site } from "@/data/site";
+---
+
+<aside
+  data-wa-bar
+  class="fixed inset-x-3 bottom-3 z-60 flex items-center gap-3 rounded-full bg-foreground py-2.5 pr-2.5 pl-4 text-white shadow-[0_8px_24px_rgba(0,0,0,0.25)] sm:hidden"
+>
+  <p class="flex-1 text-[0.8rem] leading-snug">
+    Story drops and hidden meal perks, first.
+  </p>
+  <Button href={site.whatsappChannel} variant="gold" size="sm">Join</Button>
+  <button
+    type="button"
+    aria-label="Dismiss"
+    data-wa-close
+    class="size-8 rounded-full text-xl leading-none text-white"
+  >
+    ×
+  </button>
+</aside>
+
+<script>
+  const bar = document.querySelector<HTMLElement>("[data-wa-bar]");
+  try {
+    if (bar && sessionStorage.getItem("inside-wa-dismissed") === "1")
+      bar.hidden = true;
+  } catch {
+    /* storage unavailable: leave the bar visible */
+  }
+  document.querySelector("[data-wa-close]")?.addEventListener("click", () => {
+    if (bar) bar.hidden = true;
+    try {
+      sessionStorage.setItem("inside-wa-dismissed", "1");
+    } catch {
+      /* ignore */
+    }
+  });
+</script>

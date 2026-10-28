@@ -1,0 +1,36 @@
+---
+import Container from "@/components/layout/Container.astro";
+import Button from "@/components/inside/Button.astro";
+import Eyebrow from "@/components/inside/Eyebrow.astro";
+import { site } from "@/data/site";
+---
+
+<section
+  class="bg-primary bg-[radial-gradient(rgba(255,255,255,0.08)_1.5px,transparent_1.5px)] bg-size-[22px_22px]"
+>
+  <Container>
+    <div
+      class="py-[clamp(2.5rem,6vw,5rem)] text-white [&_*:focus-visible]:outline-white"
+    >
+      <Eyebrow tone="gold" class="mb-4">Inside MayFlair</Eyebrow>
+      <h1
+        class="font-inside max-w-[16ch] text-[length:clamp(2.4rem,6.5vw,4.6rem)] leading-[1.02] font-extrabold"
+      >
+        Beyond good food, there are stories worth telling.
+      </h1>
+      <p
+        class="mt-5 max-w-[46ch] text-[length:clamp(1rem,2vw,1.15rem)] opacity-90"
+      >
+        The publication, video channel and community network of MayFlair Foods.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href={site.submitUrl} variant="gold">
+          Submit a story &amp; get fed
+        </Button>
+        <Button href={site.whatsappChannel} variant="outline-light">
+          Join WhatsApp channel
+        </Button>
+      </div>
+    </div>
+  </Container>
+</section>

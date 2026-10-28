@@ -1,0 +1,98 @@
+---
+import Container from "@/components/layout/Container.astro";
+import SectionHeading from "@/components/inside/SectionHeading.astro";
+import StoryCard from "@/components/inside/StoryCard.astro";
+import type { Story } from "@/data/stories";
+import { site } from "@/data/site";
+
+interface Props {
+  stories: Story[];
+}
+
+const { stories } = Astro.props;
+---
+
+<section
+  id="journal"
+  aria-labelledby="journal-title"
+  class="mt-13 scroll-mt-40 sm:mt-18"
+>
+  <Container>
+    <SectionHeading id="journal-title" title="The Journal">
+      <p class="text-sm text-muted" aria-live="polite">
+        <span data-count>{stories.length}</span> stories
+      </p>
+    </SectionHeading>
+
+    <div
+      data-grid
+      class="grid grid-cols-1 gap-x-7 gap-y-10 min-[641px]:grid-cols-2 min-[961px]:grid-cols-3"
+    >
+      {stories.map((story) => <StoryCard story={story} />)}
+    </div>
+
+    <p data-empty hidden class="py-12 text-center text-muted">
+      Nothing here yet.
+      <a href={site.submitUrl} class="font-semibold text-primary">
+        Write the first one.
+      </a>
+    </p>
+  </Container>
+</section>
+
+<script>
+  // Filters the cards above. Reads the category pills and search box in Header.astro.
+  const pills = document.querySelectorAll<HTMLAnchorElement>("[data-pill]");
+  const cards = document.querySelectorAll<HTMLElement>("[data-card]");
+  const empty = document.querySelector<HTMLElement>("[data-empty]");
+  const count = document.querySelector<HTMLElement>("[data-count]");
+  const search = document.querySelector<HTMLInputElement>("[data-search]");
+
+  const params = new URLSearchParams(location.search);
+  let cat = params.get("cat") ?? "all";
+  let query = (params.get("q") ?? "").trim().toLowerCase();
+  if (search && query) search.value = params.get("q") ?? "";
+
+  function apply() {
+    let shown = 0;
+    cards.forEach((card) => {
+      const matchCat = cat === "all" || card.dataset.category === cat;
+      const matchQuery = !query || (card.dataset.title ?? "").includes(query);
+      const on = matchCat && matchQuery;
+      card.hidden = !on;
+      if (on) shown++;
+    });
+    pills.forEach((pill) => {
+      const active = pill.dataset.pill === cat;
+      pill.classList.toggle("is-active", active);
+      if (active) pill.setAttribute("aria-current", "true");
+      else pill.removeAttribute("aria-current");
+    });
+    if (empty) empty.hidden = shown > 0;
+    if (count) count.textContent = String(shown);
+  }
+
+  const jumpToFeed = () =>
+    document.getElementById("journal")?.scrollIntoView({ behavior: "smooth" });
+
+  pills.forEach((pill) => {
+    pill.addEventListener("click", (e) => {
+      e.preventDefault();
+      cat = pill.dataset.pill ?? "all";
+      history.replaceState(null, "", cat === "all" ? "/inside" : `/inside?cat=${cat}`);
+      apply();
+      jumpToFeed();
+    });
+  });
+
+  search?.addEventListener("input", () => {
+    query = search.value.trim().toLowerCase();
+    apply();
+  });
+  search?.closest("form")?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    jumpToFeed();
+  });
+
+  apply();
+</script>

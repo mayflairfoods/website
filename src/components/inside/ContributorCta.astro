@@ -1,0 +1,28 @@
+---
+import Container from "@/components/layout/Container.astro";
+import Button from "@/components/inside/Button.astro";
+import Eyebrow from "@/components/inside/Eyebrow.astro";
+import { site } from "@/data/site";
+---
+
+<section class="mt-13 sm:mt-18">
+  <Container>
+    <div
+      class="flex flex-col items-start justify-between gap-8 rounded-[2rem] bg-primary-soft p-[clamp(1.75rem,4vw,3rem)] sm:flex-row sm:items-center"
+    >
+      <div>
+        <Eyebrow>For storytellers</Eyebrow>
+        <h2
+          class="font-inside mt-1.5 max-w-[22ch] text-[length:clamp(1.6rem,3vw,2.2rem)] leading-[1.15] font-extrabold text-foreground"
+        >
+          Got a story? Get published. Get fed.
+        </h2>
+        <p class="mt-3 max-w-[48ch] text-muted">
+          Approved stories earn a MayFlair meal voucher, sent straight to your
+          WhatsApp.
+        </p>
+      </div>
+      <Button href={site.submitUrl}>Submit your story</Button>
+    </div>
+  </Container>
+</section>

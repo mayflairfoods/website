@@ -1,0 +1,32 @@
+---
+import Container from "@/components/layout/Container.astro";
+import SectionHeading from "@/components/inside/SectionHeading.astro";
+import VideoCard from "@/components/inside/VideoCard.astro";
+import type { Video } from "@/data/stories";
+import { site } from "@/data/site";
+
+interface Props {
+  videos: Video[];
+}
+
+const { videos } = Astro.props;
+---
+
+<section aria-labelledby="channel-title" class="mt-13 sm:mt-18">
+  <Container>
+    <SectionHeading id="channel-title" title="The Channel">
+      <a
+        href={site.youtube}
+        class="font-inside font-bold text-primary hover:underline"
+      >
+        Watch on YouTube
+      </a>
+    </SectionHeading>
+    <ul
+      role="list"
+      class="flex snap-x snap-mandatory items-start gap-4 overflow-x-auto pb-3"
+    >
+      {videos.map((video) => <VideoCard video={video} />)}
+    </ul>
+  </Container>
+</section>

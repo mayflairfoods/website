@@ -8,19 +8,50 @@ interface Props {
 const { activeCategory } = Astro.props;
 ---
 
-<header class="site-header">
-  <div class="container">
-    <div class="bar">
-      <a class="brand" href="/inside" aria-label="Inside MayFlair home">
-        <span class="brand-mark">MayFlair<small>Foods</small></span>
-        <span class="badge">Inside</span>
+<header class="inside-header max-w-svw">
+  <div class="in-wrap">
+    <div
+      class="flex h-14 items-center gap-3 rounded-full bg-white px-4 shadow-[0_4px_18px_rgba(181,18,43,0.08)] sm:h-16"
+    >
+      <!-- Logo -->
+      <a href="/" aria-label="Mayflair Foods home" class="shrink-0">
+        <span class="hidden md:block">
+          <img
+            src="/images/MAYFLAIR_LOGO.svg"
+            alt="Mayflair Foods"
+            width="102"
+            height="96"
+            class="logo-lg"
+          />
+        </span>
+        <span class="block md:hidden">
+          <img
+            src="/images/DP.svg"
+            alt="Mayflair Foods"
+            width="48"
+            height="48"
+            class="logo-sm"
+          />
+        </span>
       </a>
 
-      <form class="search" role="search" action="/inside" method="get">
-        <label class="visually-hidden" for="inside-search">Search stories</label
-        >
+      <a
+        href="/inside"
+        class="in-badge shrink-0 rounded-full bg-foreground px-3 py-0.5 text-[0.7rem] tracking-[0.08em] uppercase"
+      >
+        Inside
+      </a>
+
+      <!-- Search -->
+      <form
+        class="relative ml-auto hidden w-full max-w-70 md:block"
+        role="search"
+        action="/inside"
+        method="get"
+      >
+        <label class="sr-only" for="inside-search">Search stories</label>
         <svg
-          class="search-icon"
+          class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted"
           width="18"
           height="18"
           viewBox="0 0 24 24"
@@ -40,179 +71,83 @@ const { activeCategory } = Astro.props;
           placeholder="Search stories"
           autocomplete="off"
           data-search
+          class="h-11 w-full rounded-full bg-surface-muted pr-4 pl-11 text-sm text-foreground placeholder:text-muted"
         />
       </form>
 
-      <a class="order" href={site.orderUrl}>Order food</a>
-      <a class="btn btn-primary subscribe" href={site.whatsappChannel}
-        >Subscribe</a
-      >
+      <!-- CTAs -->
+      <div class="ml-auto flex items-center gap-2 md:ml-0">
+        <a
+          href={site.whatsappChannel}
+          class="cta-red font-display inline-flex h-max shrink-0 items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold transition-colors hover:bg-primary-dark sm:px-6 sm:py-3 sm:text-base"
+        >
+          Subscribe
+        </a>
+      </div>
     </div>
-
-    <nav class="pills" aria-label="Story categories">
-      <a
-        class:list={["pill", { "is-active": activeCategory === "all" }]}
-        href="/inside"
-        data-pill="all"
-        aria-current={activeCategory === "all" ? "true" : undefined}>All</a
-      >
-      {
-        categories.map((c) => (
-          <a
-            class:list={["pill", { "is-active": activeCategory === c.id }]}
-            href={`/inside?cat=${c.id}`}
-            data-pill={c.id}
-            aria-current={activeCategory === c.id ? "true" : undefined}
-          >
-            {c.label}
-          </a>
-        ))
-      }
-    </nav>
   </div>
 </header>
 
 <style>
-  .site-header {
+  .inside-header {
     position: sticky;
     top: 0;
     z-index: 50;
-    padding-block: 1rem 0.9rem;
+    padding-block: 1rem 0.75rem;
     background: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(8px);
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--mf-border-light);
   }
 
-  .bar {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0.6rem 0.5rem 1.25rem;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: #fff;
+  /* The site's global `a { color: inherit }` and `img { height: auto }` are unlayered,
+     so they beat Tailwind utilities. Colours and logo sizes live here instead. */
+  .logo-lg {
+    /* height: 2.5rem; */
+    width: auto;
+    object-fit: contain;
   }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    margin-right: auto;
-    text-decoration: none;
+  .logo-sm {
+    height: 1.75rem;
+    width: 1.75rem;
+    object-fit: contain;
   }
-  .brand-mark {
-    display: flex;
-    flex-direction: column;
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    font-weight: 800;
-    line-height: 0.9;
-    color: var(--maroon);
-  }
-  .brand-mark small {
-    font-size: 0.8rem;
-    color: var(--gold);
-    -webkit-text-stroke: 0.5px var(--maroon-deep);
-  }
-  .badge {
-    padding: 0.15rem 0.6rem;
-    border-radius: 999px;
-    background: var(--ink);
+  .in-badge {
     color: #fff;
-    font-family: var(--font-display);
-    font-size: 0.7rem;
+    font-family: var(--font-inside);
     font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  }
+  .cta-gold {
+    color: #513300;
+  }
+  .cta-red {
+    color: #fff;
   }
 
-  .search {
-    position: relative;
-    flex: 0 1 280px;
-  }
-  .search input {
-    width: 100%;
-    height: 44px;
-    padding: 0 1rem 0 2.6rem;
-    border: 0;
-    border-radius: 999px;
-    background: var(--surface);
-    font: inherit;
-    font-size: 0.9rem;
-    color: var(--ink);
-  }
-  .search input::placeholder {
-    color: var(--muted);
-  }
-  .search-icon {
-    position: absolute;
-    left: 0.95rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--muted);
-    pointer-events: none;
-  }
-
-  .order {
-    padding-inline: 0.5rem;
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: var(--maroon);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .order:hover {
-    text-decoration: underline;
-  }
-
-  .subscribe {
-    min-height: 44px;
-  }
-
-  .pills {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.9rem;
-    padding-bottom: 0.15rem;
-    overflow-x: auto;
+  nav {
     scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
   }
-  .pills::-webkit-scrollbar {
+  nav::-webkit-scrollbar {
     display: none;
   }
+
   .pill {
     flex: none;
     padding: 0.35rem 1rem;
-    border: 1px solid var(--line);
+    border: 1px solid var(--mf-border);
     border-radius: 999px;
     background: #fff;
-    font-family: var(--font-display);
+    color: var(--mf-foreground);
     font-size: 0.9rem;
-    font-weight: 700;
-    text-decoration: none;
     white-space: nowrap;
     transition:
       background-color 0.15s ease,
       color 0.15s ease;
   }
   .pill:hover {
-    background: var(--maroon-tint);
+    background: var(--mf-primary-soft);
   }
   .pill.is-active {
-    background: var(--maroon);
-    border-color: var(--maroon);
+    background: var(--mf-primary);
+    border-color: var(--mf-primary);
     color: #fff;
-  }
-
-  @media (max-width: 640px) {
-    .bar {
-      padding-left: 1rem;
-    }
-    .search,
-    .order {
-      display: none;
-    }
   }
 </style>
