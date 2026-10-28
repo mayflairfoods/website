@@ -14,18 +14,14 @@ import { site } from "@/data/site";
     >
       <Eyebrow tone="gold" class="mb-4">Inside MayFlair</Eyebrow>
       <h1
-        class="font-inside max-w-[16ch] text-[length:clamp(2.4rem,6.5vw,4.6rem)] leading-[1.02] font-extrabold"
+        class="font-inside max-w-[16ch] text-[clamp(2.4rem,6.5vw,4.6rem)] font-extrabold"
       >
         Beyond good food, there are stories worth telling.
       </h1>
-      <p
-        class="mt-5 max-w-[46ch] text-[length:clamp(1rem,2vw,1.15rem)] opacity-90"
-      >
-        The publication, video channel and community network of MayFlair Foods.
-      </p>
+
       <div class="mt-8 flex flex-wrap gap-3">
-        <Button href={site.submitUrl} variant="gold">
-          Submit a story &amp; get fed
+        <Button class="" href={site.submitUrl} variant="gold">
+          Submit a story
         </Button>
         <Button href={site.whatsappChannel} variant="outline-light">
           Join WhatsApp channel
