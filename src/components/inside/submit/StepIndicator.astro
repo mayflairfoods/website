@@ -1,0 +1,44 @@
+---
+const steps = ["Your profile", "Your story", "Review"];
+---
+
+<ol class="flex items-center gap-2" aria-label="Progress">
+  {
+    steps.map((label, i) => (
+      <li
+        data-step-dot
+        data-state={i === 0 ? "current" : "todo"}
+        aria-current={i === 0 ? "step" : undefined}
+        class:list={[
+          "group flex items-center gap-2 text-sm font-semibold text-muted data-[state=current]:text-foreground data-[state=done]:text-foreground",
+          i < steps.length - 1 ? "flex-1" : "",
+        ]}
+      >
+        <span class="grid size-8 shrink-0 place-items-center rounded-full border-2 border-border bg-white font-inside text-sm font-bold transition-colors group-data-[state=current]:border-primary group-data-[state=current]:bg-primary group-data-[state=current]:text-white group-data-[state=done]:border-primary group-data-[state=done]:bg-primary-soft group-data-[state=done]:text-primary">
+          <span class="group-data-[state=done]:hidden">{i + 1}</span>
+          <svg
+            class="hidden group-data-[state=done]:block"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M5 12.5l4.5 4.5L19 7.5" />
+          </svg>
+        </span>
+        <span class="hidden sm:inline">{label}</span>
+        {i < steps.length - 1 && (
+          <span
+            class="ml-1 h-0.5 flex-1 rounded-full bg-border group-data-[state=done]:bg-primary"
+            aria-hidden="true"
+          />
+        )}
+      </li>
+    ))
+  }
+</ol>

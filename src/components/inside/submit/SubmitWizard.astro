@@ -1,0 +1,305 @@
+---
+import Button from "@/components/inside/Button.astro";
+import Field from "@/components/inside/submit/Field.astro";
+import CategoryPicker from "@/components/inside/submit/CategoryPicker.astro";
+import StepIndicator from "@/components/inside/submit/StepIndicator.astro";
+import SubmitSuccess from "@/components/inside/submit/SubmitSuccess.astro";
+import {
+  areaClass,
+  choiceCard,
+  inputClass,
+  stepTitle,
+} from "@/components/inside/submit/styles";
+import { site } from "@/data/site";
+
+const endpoint = site.submitEndpoint;
+const campuses = ["UNEC Campus", "Thinkers Corner", "Off-campus / Other"];
+const hrefFor = (label: string) =>
+  site.quickLinks.find((l) => l.label.startsWith(label))?.href ?? "#";
+---
+
+<div class="rounded-[2rem] border border-border p-5 sm:p-8">
+  <form
+    data-submit-form
+    data-endpoint={endpoint}
+    data-help-email={site.contact.email}
+    action={endpoint || undefined}
+    method="post"
+    novalidate
+    class="relative grid gap-6"
+  >
+    <StepIndicator />
+    <p
+      data-step-status
+      aria-live="polite"
+      class="text-sm font-medium text-muted"
+    >
+      Step 1 of 3 · Your profile
+    </p>
+
+    <!-- Honeypot: real people never see or fill this. -->
+    <div class="absolute -left-[9999px]" aria-hidden="true">
+      <label>
+        Company
+        <input type="text" name="company" tabindex="-1" autocomplete="off" />
+      </label>
+    </div>
+
+    <!-- Step 1 -->
+    <section
+      data-step-panel="1"
+      aria-labelledby="step1-title"
+      class="grid scroll-mt-40 gap-5"
+    >
+      <h2 id="step1-title" data-step-title tabindex="-1" class={stepTitle}>
+        Tell us who you are
+      </h2>
+
+      <Field id="name" label="Full name">
+        <input
+          id="name"
+          name="name"
+          type="text"
+          autocomplete="name"
+          maxlength="80"
+          aria-describedby="name-error"
+          class={inputClass}
+        />
+      </Field>
+
+      <Field
+        id="byline"
+        label="Byline"
+        optional
+        hint="The name we publish under. Leave it blank to use your full name."
+      >
+        <input
+          id="byline"
+          name="byline"
+          type="text"
+          maxlength="60"
+          aria-describedby="byline-hint"
+          class={inputClass}
+        />
+      </Field>
+
+      <Field
+        id="whatsapp"
+        label="WhatsApp number"
+        hint="We reply here, and send your voucher here if we publish your story."
+      >
+        <input
+          id="whatsapp"
+          name="whatsapp"
+          type="tel"
+          inputmode="tel"
+          autocomplete="tel"
+          placeholder="0801 234 5678"
+          aria-describedby="whatsapp-hint whatsapp-error"
+          class={inputClass}
+        />
+      </Field>
+
+      <Field id="email" label="Email address">
+        <input
+          id="email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          aria-describedby="email-error"
+          class={inputClass}
+        />
+      </Field>
+
+      <Field id="campus" label="Where are you based?">
+        <select
+          id="campus"
+          name="campus"
+          aria-describedby="campus-error"
+          class={inputClass}
+        >
+          <option value="">Choose one</option>
+          {campuses.map((c) => <option value={c}>{c}</option>)}
+        </select>
+      </Field>
+
+      <Field
+        id="bio"
+        label="About you"
+        optional
+        hint="Two or three sentences for your author note."
+      >
+        <textarea
+          id="bio"
+          name="bio"
+          rows="3"
+          maxlength="300"
+          aria-describedby="bio-hint"
+          class={areaClass}
+        ></textarea>
+      </Field>
+
+      <div class="flex justify-end">
+        <Button type="submit" data-next>Continue</Button>
+      </div>
+    </section>
+
+    <!-- Step 2 -->
+    <section
+      data-step-panel="2"
+      aria-labelledby="step2-title"
+      class="grid scroll-mt-40 gap-5"
+    >
+      <h2 id="step2-title" data-step-title tabindex="-1" class={stepTitle}>
+        Share your story
+      </h2>
+
+      <Field id="headline" label="Headline">
+        <input
+          id="headline"
+          name="headline"
+          type="text"
+          maxlength="120"
+          aria-describedby="headline-error"
+          class={inputClass}
+        />
+      </Field>
+
+      <CategoryPicker />
+
+      <fieldset class="grid gap-1.5">
+        <legend class="mb-1.5 text-sm font-semibold text-foreground">Format</legend>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="relative cursor-pointer">
+            <input type="radio" name="format" value="written" checked class="peer sr-only" />
+            <span class={choiceCard}>Written story</span>
+          </label>
+          <label class="relative cursor-pointer">
+            <input type="radio" name="format" value="media" class="peer sr-only" />
+            <span class={choiceCard}>Video or audio</span>
+          </label>
+        </div>
+      </fieldset>
+
+      <div data-format-panel="written" class="grid gap-1.5">
+        <Field
+          id="draft"
+          label="Your story or pitch"
+          hint="A finished draft or a short pitch both work. Aim for at least 30 words."
+        >
+          <textarea
+            id="draft"
+            name="draft"
+            rows="10"
+            aria-describedby="draft-hint draft-error"
+            class={areaClass}
+          ></textarea>
+        </Field>
+        <p data-word-count class="text-xs text-muted">0 words</p>
+      </div>
+
+      <div data-format-panel="media" hidden class="grid gap-1.5">
+        <Field
+          id="mediaLink"
+          label="Link to your video or audio"
+          hint="YouTube, TikTok, Google Drive or any public link."
+        >
+          <input
+            id="mediaLink"
+            name="mediaLink"
+            type="url"
+            inputmode="url"
+            placeholder="https://"
+            aria-describedby="mediaLink-hint mediaLink-error"
+            class={inputClass}
+          />
+        </Field>
+      </div>
+
+      <p class="text-xs text-muted">
+        No photos needed yet. If we publish your story, we'll ask for them.
+      </p>
+
+      <div class="flex justify-between gap-3">
+        <Button variant="ghost" data-back>Back</Button>
+        <Button type="submit" data-next>Continue</Button>
+      </div>
+    </section>
+
+    <!-- Step 3 -->
+    <section
+      data-step-panel="3"
+      aria-labelledby="step3-title"
+      class="grid scroll-mt-40 gap-5"
+    >
+      <h2 id="step3-title" data-step-title tabindex="-1" class={stepTitle}>
+        Check and send
+      </h2>
+
+      <dl class="grid gap-3 rounded-2xl bg-surface-muted p-5 text-sm">
+        {
+          [
+            ["Published as", "byline"],
+            ["WhatsApp", "whatsapp"],
+            ["Email", "email"],
+            ["Based at", "campus"],
+            ["Headline", "headline"],
+            ["Category", "category"],
+            ["Format", "format"],
+          ].map(([label, key]) => (
+            <div class="flex justify-between gap-4">
+              <dt class="shrink-0 text-muted">{label}</dt>
+              <dd data-review={key} class="min-w-0 text-right font-medium break-words text-foreground"></dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <div class="grid gap-1.5">
+        <label class="flex cursor-pointer items-start gap-3">
+          <input
+            id="agree"
+            type="checkbox"
+            name="agree"
+            value="yes"
+            aria-describedby="agree-error"
+            class="mt-1 size-5 shrink-0 accent-primary"
+          />
+          <span class="text-sm text-foreground">
+            This story is my own work, I have the right to share it, and I'm
+            happy for MayFlair to edit and publish it on Inside MayFlair.
+          </span>
+        </label>
+        <p id="agree-error" hidden role="alert" class="text-xs font-medium text-danger"></p>
+      </div>
+
+      <p class="text-xs text-muted">
+        By sending this you agree to our{" "}
+        <a href={hrefFor("Terms")} class="font-semibold text-primary underline underline-offset-2">Terms</a>{" "}
+        and{" "}
+        <a href={hrefFor("Privacy")} class="font-semibold text-primary underline underline-offset-2">Privacy Policy</a>.
+      </p>
+
+      <p
+        data-form-error
+        hidden
+        role="alert"
+        class="rounded-2xl bg-primary-soft p-4 text-sm font-medium text-primary-dark"
+      >
+      </p>
+
+      <div class="flex justify-between gap-3">
+        <Button variant="ghost" data-back>Back</Button>
+        <Button type="submit" data-submit>Send my story</Button>
+      </div>
+    </section>
+  </form>
+
+  <SubmitSuccess />
+</div>
+
+<script>
+  import { initSubmitWizard } from "@/scripts/inside-submit";
+  initSubmitWizard();
+</script>

@@ -1,0 +1,43 @@
+---
+import Container from "@/components/layout/Container.astro";
+import Eyebrow from "@/components/inside/Eyebrow.astro";
+import SubmitWizard from "@/components/inside/submit/SubmitWizard.astro";
+import SubmitAside from "@/components/inside/submit/SubmitAside.astro";
+import InsideLayout from "@/layouts/InsideLayout.astro";
+---
+
+<InsideLayout
+  title="Submit a story | Inside MayFlair"
+  description="Share a story, essay or campus feature with Inside MayFlair. If we publish it, you get a MayFlair meal voucher on WhatsApp."
+>
+  <section class="mt-8">
+    <Container>
+      <a
+        href="/inside"
+        class="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
+      >
+        <span aria-hidden="true">←</span> Back to Inside
+      </a>
+
+      <div class="mt-6 mb-8 max-w-2xl">
+        <Eyebrow>Write for Inside MayFlair</Eyebrow>
+        <h1
+          class="font-inside mt-1.5 text-[length:clamp(2rem,5vw,3.25rem)] leading-[1.05] font-extrabold text-foreground"
+        >
+          Got a story? Get published. Get fed.
+        </h1>
+        <p class="mt-4 text-muted">
+          Share a story, an essay or a campus feature. If we publish it, a
+          MayFlair meal voucher lands on your WhatsApp.
+        </p>
+      </div>
+
+      <div
+        class="grid items-start gap-8 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-12"
+      >
+        <SubmitWizard />
+        <SubmitAside />
+      </div>
+    </Container>
+  </section>
+</InsideLayout>

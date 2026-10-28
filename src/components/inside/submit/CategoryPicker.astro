@@ -1,0 +1,26 @@
+---
+import { categories } from "@/data/stories";
+import { choiceCard } from "@/components/inside/submit/styles";
+---
+
+<fieldset class="grid gap-1.5">
+  <legend class="mb-1.5 text-sm font-semibold text-foreground">Category</legend>
+  <div class="grid grid-cols-2 gap-3">
+    {
+      categories.map((c) => (
+        <label class="relative cursor-pointer">
+          <input
+            type="radio"
+            name="category"
+            value={c.id}
+            data-label={c.label}
+            class="peer sr-only"
+            aria-describedby="category-error"
+          />
+          <span class={choiceCard}>{c.label}</span>
+        </label>
+      ))
+    }
+  </div>
+  <p id="category-error" hidden role="alert" class="text-xs font-medium text-danger"></p>
+</fieldset>
