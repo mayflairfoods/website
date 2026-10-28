@@ -6,12 +6,17 @@ interface Props {
   class?: string;
 }
 
-const { href, variant = "primary", size = "md", class: className } = Astro.props;
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  class: className,
+} = Astro.props;
 
 const variants = {
   primary:
     "border-primary bg-primary text-white hover:border-primary-dark hover:bg-primary-dark",
-  gold: "border-[#F1AC34] bg-[#F1AC34] text-[#513300] hover:border-accent-dark hover:bg-accent-dark",
+  gold: "border-[#F1AC34] bg-[#F1AC34] text-white hover:border-accent-dark hover:bg-accent-dark",
   "outline-light": "border-white/70 text-white hover:bg-white/10",
 };
 
