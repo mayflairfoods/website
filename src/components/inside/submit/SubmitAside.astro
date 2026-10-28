@@ -1,0 +1,46 @@
+---
+import Eyebrow from "@/components/inside/Eyebrow.astro";
+
+const steps = [
+  ["Send it in.", "A finished story or a short pitch. It takes about five minutes."],
+  ["We review it.", "Our editors reply within 3 to 5 business days."],
+  ["You get fed.", "Once it's published, your voucher arrives on WhatsApp."],
+];
+---
+
+<aside class="grid gap-6 rounded-[2rem] bg-primary-soft p-6 sm:p-8 lg:sticky lg:top-40">
+  <div>
+    <Eyebrow>How it works</Eyebrow>
+    <ol class="mt-4 grid gap-4">
+      {
+        steps.map(([title, text], i) => (
+          <li class="flex gap-3">
+            <span class="grid size-7 shrink-0 place-items-center rounded-full bg-primary font-inside text-sm font-bold text-white">
+              {i + 1}
+            </span>
+            <p class="text-sm text-foreground">
+              <strong>{title}</strong>{" "}{text}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div class="rounded-2xl bg-white p-4">
+    <p class="font-inside font-bold text-foreground">Your reward</p>
+    <p class="mt-1 text-sm text-muted">
+      One MayFlair meal combo voucher for every story we publish. Valid for 30
+      days at the UNEC Campus and Thinkers Corner outlets.
+    </p>
+  </div>
+
+  <div>
+    <p class="font-inside font-bold text-foreground">What we look for</p>
+    <ul class="mt-2 grid gap-1.5 text-sm text-muted">
+      <li>Campus life, food culture, community voices and events.</li>
+      <li>Your own work, in your own words.</li>
+      <li>We may edit for length and clarity before publishing.</li>
+    </ul>
+  </div>
+</aside>
